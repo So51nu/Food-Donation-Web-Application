@@ -53,5 +53,8 @@
 
 <h2>view project :</h2>
 
-<a href="[View Demo](demo/Project_recording.mp4)" > view demo</a>
+<video width="600" controls>
+  <source src="demo/Project_recording.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
