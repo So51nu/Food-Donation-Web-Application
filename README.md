@@ -51,10 +51,8 @@
        <li>Import demo.sql file(inside database folder)</li>
        <li> Run the script http://localhost/folderName </li> </ol>
 
-## View Project Demo
-<h2>view project :</h2>
 <h2>Project Demo Video</h2>
-<iframe src="https://drive.google.com/file/d/1U1bno73KUeSJ6_70er0vs2TKMZ5rcKxN/view?usp=drive_link" 
+<iframe src="https://drive.google.com/file/d/1U1bno73KUeSJ6_70er0vs2TKMZ5rcKxN/preview" 
         width="640" height="360" allow="autoplay">
 </iframe>
 
