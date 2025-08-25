@@ -52,9 +52,13 @@
        <li> Run the script http://localhost/folderName </li> </ol>
 
 <h2>view project :</h2>
-
+<html>
+ <head>
 <video width="600" controls>
   <source src="demo/Project_recording.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+ </head>
+</html>
+
 
