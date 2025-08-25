@@ -17,11 +17,8 @@
 
 ## View Project Demo
 
-### Option 1: Host Video Inside Repo  
-Place your `Project_recording.mp4` inside a folder (example: `demo/`) and then link it like this:
+<h2>Project Demo Video</h2>
+<iframe src="https://drive.google.com/file/d/1C-ep733DSpcEYN8T0ZwrII2KKDQd2XI6/preview" 
+        width="640" height="360" allow="autoplay">
+</iframe>
 
-```html
-<video width="600" controls>
-  <source src="demo/Project_recording.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
