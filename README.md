@@ -53,12 +53,13 @@
 
 <h2>view project :</h2>
 <html>
- <head>
-<video width="600" controls>
-  <source src="demo/Project_recording.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
- </head>
+<body>
+    <p>Watch this video to get started with Full-Stack Development:</p>
+    <video controls width="600">
+        <source
+            src="https://drive.google.com/file/d/1C-ep733DSpcEYN8T0ZwrII2KKDQd2XI6/view?usp=drive_link">
+        Your browser does not support the video tag.
+    </video>
+</body>
 </html>
-
 
