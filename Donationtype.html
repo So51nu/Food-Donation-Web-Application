@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Types | FoodShare</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --primary-light: #C8E6C9;
+            --secondary: #FFC107;
+            --secondary-dark: #FFA000;
+            --text-dark: #333;
+            --text-light: #f5f5f5;
+            --background: #f9f9f9;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1593113630400-ea4288922497?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Donation Types Section */
+        .donation-types {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .donation-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .donation-option {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .donation-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .donation-option.selected {
+            border: 3px solid var(--primary);
+        }
+
+        .donation-option-header {
+            background-color: var(--primary-light);
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--primary-dark);
+        }
+
+        .donation-option-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .donation-option-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .donation-option-body {
+            padding: 1.5rem;
+        }
+
+        .donation-option-body p {
+            margin-bottom: 1rem;
+        }
+
+        .donation-option-footer {
+            padding: 1rem 1.5rem;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+
+        .donation-option-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary);
+            color: var(--text-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Donation Form Section */
+        .donation-form-section {
+            padding: 3rem 0;
+            background-color: #f0f8f0;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        /* Custom Radio Buttons */
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .radio-option {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-option label {
+            display: block;
+            padding: 0.8rem;
+            text-align: center;
+            background-color: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            background-color: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+
+        /* Summary Section */
+        .donation-summary {
+            background-color: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .progress-step {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .progress-step.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--text-light);
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: background-color 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Thank You Message */
+        .thank-you-message {
+            text-align: center;
+            padding: 3rem;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .thank-you-message h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .thank-you-message p {
+            margin-bottom: 1.5rem;
+        }
+
+        .thank-you-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                width: 100%;
+                display: none;
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            nav ul li {
+                margin: 0;
+                text-align: center;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 20px;
+                top: 20px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .donation-option {
+                min-width: 100%;
+            }
+
+            .form-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .form-navigation .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Food<span>Share</span></div>
+            <button class="mobile-menu-btn">☰</button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="Howitworks.html">How It Works</a></li>
+                    <li><a href="fooddonateform.php">Donate</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Choose Your Donation Type</h1>
+            <p>There are many ways to contribute to our mission of reducing food waste and fighting hunger.</p>
+        </div>
+    </section>
+
+    <!-- Donation Types Section -->
+    <section class="donation-types">
+        <div class="container">
+            <h2 class="section-title">How Would You Like to Help?</h2>
+            <p class="section-subtitle">Select the type of donation that works best for you. Every contribution, big or small, makes a difference in our community.</p>
+            
+            <div class="donation-options">
+                <!-- Food Donation Option -->
+                <div class="donation-option" data-type="food">
+                    <div class="donation-option-header">
+                        <div class="donation-option-icon">🍎</div>
+                        <h3>Food Donation</h3>
+                    </div>
+                    <div class="donation-option-body">
+                        <p>Donate excess food from your home, restaurant, or grocery store. We accept non-perishable items, fresh produce, and prepared meals.</p>
+                        <p><strong>Examples:</strong> Canned goods, fresh fruits and vegetables, baked goods, prepared meals</p>
+                    </div>
+                    <div class="donation-option-footer">
+                        <span>Most Direct Impact</span>
+                    </div>
+                </div>
+                
+                <!-- Monetary Donation Option -->
+                <div class="donation-option" data-type="money">
+                    <div class="donation-option-header">
+                        <div class="donation-option-icon">💰</div>
+                        <h3>Monetary Donation</h3>
+                    </div>
+                    <div class="donation-option-badge">Most Flexible</div>
+                    <div class="donation-option-body">
+                        <p>Financial contributions help us purchase food, maintain our distribution network, and expand our reach to more communities in need.</p>
+                        <p><strong>Impact:</strong> $10 can provide up to 30 meals for those in need</p>
+                    </div>
+                    <div class="donation-option-footer">
+                        <span>One-time or Monthly</span>
+                    </div>
+                </div>
+                
+                <!-- Volunteer Time Option -->
+                <div class="donation-option" data-type="volunteer">
+                    <div class="donation-option-header">
+                        <div class="donation-option-icon">👥</div>
+                        <h3>Volunteer Time</h3>
+                    </div>
+                    <div class="donation-option-body">
+                        <p>Donate your time and skills to help with food collection, sorting, distribution, or administrative tasks.</p>
+                        <p><strong>Opportunities:</strong> Food pickup, sorting donations, delivery, event coordination</p>
+                    </div>
+                    <div class="donation-option-footer">
+                        <span>Flexible Hours</span>
+                    </div>
+                </div>
+                
+                <!-- Restaurant Partnership Option -->
+                <div class="donation-option" data-type="restaurant">
+                    <div class="donation-option-header">
+                        <div class="donation-option-icon">🍽️</div>
+                        <h3>Restaurant Partnership</h3>
+                    </div>
+                    <div class="donation-option-body">
+                        <p>Restaurants can partner with us to donate excess food regularly. We provide scheduled pickups and tax receipts for your donations.</p>
+                        <p><strong>Benefits:</strong> Reduce waste, tax benefits, community goodwill</p>
+                    </div>
+                    <div class="donation-option-footer">
+                        <span>Business Solution</span>
+                    </div>
+                </div>
+                
+                <!-- Corporate Sponsorship Option -->
+                <div class="donation-option" data-type="corporate">
+                    <div class="donation-option-header">
+                        <div class="donation-option-icon">🏢</div>
+                        <h3>Corporate Sponsorship</h3>
+                    </div>
+                    <div class="donation-option-badge">High Impact</div>
+                    <div class="donation-option-body">
+                        <p>Businesses can sponsor our programs, events, or infrastructure needs. Sponsorships include recognition and marketing benefits.</p>
+                        <p><strong>Options:</strong> Program sponsorship, event sponsorship, equipment funding</p>
+                    </div>
+                    <div class="donation-option-footer">
+                        <span>Partnership Opportunity</span>
+                    </div>
+                </div>
+                
+                <!-- Food Drive Option -->
+                <div class="donation-option" data-type="fooddrive">
+                    <div class="donation-option-header">
+                        <div class="donation-option-icon">📦</div>
+                        <h3>Organize a Food Drive</h3>
+                    </div>
+                    <div class="donation-option-body">
+                        <p>Organize a food collection drive at your school, workplace, or community. We provide resources and pickup for successful drives.</p>
+                        <p><strong>We provide:</strong> Collection bins, promotional materials, pickup coordination</p>
+                    </div>
+                    <div class="donation-option-footer">
+                        <span>Community Engagement</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Form Section -->
+    <section class="donation-form-section">
+        <div class="container">
+            <h2 class="section-title">Complete Your Donation</h2>
+            <p class="section-subtitle">Please fill out the form below based on your selected donation type.</p>
+            
+            <div class="form-container">
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="form-progress" style="width: 25%"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div class="progress-step active">Select Type</div>
+                        <div class="progress-step">Details</div>
+                        <div class="progress-step">Contact Info</div>
+                        <div class="progress-step">Confirm</div>
+                    </div>
+                </div>
+                
+                <!-- Form Steps -->
+                <form id="donation-form">
+                    <!-- Step 1: Donation Type Selection (Already done above, this is a confirmation) -->
+                    <div class="form-step active" id="step1">
+                        <div class="form-group">
+                            <label>Selected Donation Type:</label>
+                            <h3 id="selected-donation-type">Please select a donation type above</h3>
+                            <p id="donation-type-description"></p>
+                        </div>
+                        
+                        <div class="form-navigation">
+                            <div></div> <!-- Empty div for spacing -->
+                            <button type="button" class="btn" id="to-step2" disabled>Continue</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Donation Details (Dynamic based on type) -->
+                    <div class="form-step" id="step2">
+                        <!-- Food Donation Fields -->
+                        <div id="food-donation-fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="food-type">Food Type</label>
+                                <select id="food-type" class="form-control" required>
+                                    <option value="">Select food type</option>
+                                    <option value="non-perishable">Non-Perishable Items</option>
+                                    <option value="fresh-produce">Fresh Produce</option>
+                                    <option value="baked-goods">Baked Goods</option>
+                                    <option value="prepared-meals">Prepared Meals</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="food-quantity">Approximate Quantity</label>
+                                    <input type="number" id="food-quantity" class="form-control" min="1" placeholder="e.g., 5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="quantity-unit">Unit</label>
+                                    <select id="quantity-unit" class="form-control" required>
+                                        <option value="kg">Kilograms</option>
+                                        <option value="items">Items</option>
+                                        <option value="meals">Meals</option>
+                                        <option value="boxes">Boxes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="food-description">Description</label>
+                                <textarea id="food-description" class="form-control" rows="3" placeholder="Please describe the food items you're donating"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="expiry-date">Expiry Date (if applicable)</label>
+                                <input type="date" id="expiry-date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Donation Frequency</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="one-time" name="frequency" value="one-time" checked>
+                                        <label for="one-time">One-time</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="weekly" name="frequency" value="weekly">
+                                        <label for="weekly">Weekly</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="monthly" name="frequency" value="monthly">
+                                        <label for="monthly">Monthly</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Monetary Donation Fields -->
+                        <div id="money-donation-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Donation Amount</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="amount-10" name="amount" value="10">
+                                        <label for="amount-10">$10</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="amount-25" name="amount" value="25">
+                                        <label for="amount-25">$25</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="amount-50" name="amount" value="50">
+                                        <label for="amount-50">$50</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="amount-100" name="amount" value="100">
+                                        <label for="amount-100">$100</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="amount-custom" name="amount" value="custom">
+                                        <label for="amount-custom">Custom</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="custom-amount-group" style="display: none;">
+                                <label for="custom-amount">Custom Amount ($)</label>
+                                <input type="number" id="custom-amount" class="form-control" min="1" placeholder="Enter amount">
+                            </div>
+                            <div class="form-group">
+                                <label>Donation Frequency</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="money-one-time" name="money-frequency" value="one-time" checked>
+                                        <label for="money-one-time">One-time</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="money-monthly" name="money-frequency" value="monthly">
+                                        <label for="money-monthly">Monthly</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="money-quarterly" name="money-frequency" value="quarterly">
+                                        <label for="money-quarterly">Quarterly</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="donation-allocation">Allocate Your Donation To</label>
+                                <select id="donation-allocation" class="form-control">
+                                    <option value="general">Where Needed Most</option>
+                                    <option value="food-purchase">Food Purchase Program</option>
+                                    <option value="distribution">Distribution Network</option>
+                                    <option value="education">Food Waste Education</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Volunteer Time Fields -->
+                        <div id="volunteer-donation-fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="volunteer-area">Area of Interest</label>
+                                <select id="volunteer-area" class="form-control" required>
+                                    <option value="">Select area</option>
+                                    <option value="food-collection">Food Collection</option>
+                                    <option value="sorting">Sorting & Packaging</option>
+                                    <option value="delivery">Food Delivery</option>
+                                    <option value="admin">Administrative Support</option>
+                                    <option value="events">Event Support</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="volunteer-skills">Relevant Skills</label>
+                                <textarea id="volunteer-skills" class="form-control" rows="3" placeholder="Please list any relevant skills or experience"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Availability</label>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="availability-days">Days Available</label>
+                                        <select id="availability-days" class="form-control" multiple required>
+                                            <option value="monday">Monday</option>
+                                            <option value="tuesday">Tuesday</option>
+                                            <option value="wednesday">Wednesday</option>
+                                            <option value="thursday">Thursday</option>
+                                            <option value="friday">Friday</option>
+                                            <option value="saturday">Saturday</option>
+                                            <option value="sunday">Sunday</option>
+                                        </select>
+                                        <small>Hold Ctrl/Cmd to select multiple days</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="availability-time">Preferred Time</label>
+                                        <select id="availability-time" class="form-control" required>
+                                            <option value="morning">Morning (8am-12pm)</option>
+                                            <option value="afternoon">Afternoon (12pm-5pm)</option>
+                                            <option value="evening">Evening (5pm-9pm)</option>
+                                            <option value="flexible">Flexible</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Frequency</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="volunteer-weekly" name="volunteer-frequency" value="weekly" checked>
+                                        <label for="volunteer-weekly">Weekly</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="volunteer-biweekly" name="volunteer-frequency" value="biweekly">
+                                        <label for="volunteer-biweekly">Bi-weekly</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="volunteer-monthly" name="volunteer-frequency" value="monthly">
+                                        <label for="volunteer-monthly">Monthly</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="volunteer-oneoff" name="volunteer-frequency" value="one-off">
+                                        <label for="volunteer-oneoff">One-off</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Restaurant Partnership Fields -->
+                        <div id="restaurant-donation-fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="restaurant-name">Restaurant/Business Name</label>
+                                <input type="text" id="restaurant-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="restaurant-type">Business Type</label>
+                                <select id="restaurant-type" class="form-control" required>
+                                    <option value="">Select type</option>
+                                    <option value="restaurant">Restaurant</option>
+                                    <option value="cafe">Café</option>
+                                    <option value="bakery">Bakery</option>
+                                    <option value="grocery">Grocery Store</option>
+                                    <option value="catering">Catering Service</option>
+                                    <option value="other">Other Food Business</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="food-types-available">Types of Food Available for Donation</label>
+                                <textarea id="food-types-available" class="form-control" rows="3" placeholder="E.g., prepared meals, baked goods, produce, etc."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Estimated Donation Frequency</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="restaurant-daily" name="restaurant-frequency" value="daily">
+                                        <label for="restaurant-daily">Daily</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="restaurant-weekly" name="restaurant-frequency" value="weekly" checked>
+                                        <label for="restaurant-weekly">Weekly</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="restaurant-biweekly" name="restaurant-frequency" value="biweekly">
+                                        <label for="restaurant-biweekly">Bi-weekly</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="restaurant-monthly" name="restaurant-frequency" value="monthly">
+                                        <label for="restaurant-monthly">Monthly</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="preferred-pickup-times">Preferred Pickup Times</label>
+                                <input type="text" id="preferred-pickup-times" class="form-control" placeholder="E.g., Weekdays after 8pm, Sunday mornings, etc.">
+                            </div>
+                        </div>
+                        
+                        <!-- Corporate Sponsorship Fields -->
+                        <div id="corporate-donation-fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="company-name">Company Name</label>
+                                <input type="text" id="company-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sponsorship-type">Sponsorship Interest</label>
+                                <select id="sponsorship-type" class="form-control" required>
+                                    <option value="">Select type</option>
+                                    <option value="program">Program Sponsorship</option>
+                                    <option value="event">Event Sponsorship</option>
+                                    <option value="equipment">Equipment Funding</option>
+                                    <option value="transportation">Transportation Support</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Sponsorship Level</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="level-bronze" name="sponsorship-level" value="bronze">
+                                        <label for="level-bronze">Bronze<br>$1,000</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="level-silver" name="sponsorship-level" value="silver">
+                                        <label for="level-silver">Silver<br>$2,500</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="level-gold" name="sponsorship-level" value="gold">
+                                        <label for="level-gold">Gold<br>$5,000</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="level-platinum" name="sponsorship-level" value="platinum">
+                                        <label for="level-platinum">Platinum<br>$10,000+</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sponsorship-goals">Sponsorship Goals</label>
+                                <textarea id="sponsorship-goals" class="form-control" rows="3" placeholder="What does your company hope to achieve through this sponsorship?"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Food Drive Fields -->
+                        <div id="fooddrive-donation-fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="drive-organization">Organization/Group Name</label>
+                                <input type="text" id="drive-organization" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="drive-type">Type of Organization</label>
+                                <select id="drive-type" class="form-control" required>
+                                    <option value="">Select type</option>
+                                    <option value="school">School</option>
+                                    <option value="workplace">Workplace</option>
+                                    <option value="community">Community Group</option>
+                                    <option value="religious">Religious Organization</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="drive-start-date">Start Date</label>
+                                    <input type="date" id="drive-start-date" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="drive-end-date">End Date</label>
+                                    <input type="date" id="drive-end-date" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="drive-location">Drive Location</label>
+                                <input type="text" id="drive-location" class="form-control" placeholder="Address where the food drive will be held" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Resources Needed</label>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <input type="checkbox" id="resource-bins" name="resources[]" value="bins">
+                                        <label for="resource-bins">Collection Bins</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="checkbox" id="resource-posters" name="resources[]" value="posters">
+                                        <label for="resource-posters">Promotional Posters</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="checkbox" id="resource-flyers" name="resources[]" value="flyers">
+                                        <label for="resource-flyers">Flyers</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="checkbox" id="resource-pickup" name="resources[]" value="pickup">
+                                        <label for="resource-pickup">Pickup Service</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="estimated-participants">Estimated Number of Participants</label>
+                                <input type="number" id="estimated-participants" class="form-control" min="1">
+                            </div>
+                        </div>
+                        
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-outline" id="back-to-step1">Back</button>
+                            <button type="button" class="btn" id="to-step3">Continue</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Contact Information -->
+                    <div class="form-step" id="step3">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">First Name</label>
+                                <input type="text" id="first-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" id="last-name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" class="form-control" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zip">Postal/Zip Code</label>
+                                <input type="text" id="zip" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="how-heard">How did you hear about us?</label>
+                            <select id="how-heard" class="form-control">
+                                <option value="">Select an option</option>
+                                <option value="social">Social Media</option>
+                                <option value="search">Search Engine</option>
+                                <option value="friend">Friend/Family</option>
+                                <option value="event">Community Event</option>
+                                <option value="news">News/Media</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="newsletter" name="newsletter" checked>
+                            <label for="newsletter">Subscribe to our newsletter for updates on our impact and upcoming events</label>
+                        </div>
+                        
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-outline" id="back-to-step2">Back</button>
+                            <button type="button" class="btn" id="to-step4">Review Donation</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4: Review and Confirm -->
+                    <div class="form-step" id="step4">
+                        <h3>Donation Summary</h3>
+                        <div class="donation-summary">
+                            <div class="summary-item">
+                                <span>Donation Type:</span>
+                                <span id="summary-type"></span>
+                            </div>
+                            <div id="summary-details">
+                                <!-- Dynamically filled based on donation type -->
+                            </div>
+                            <div class="summary-item">
+                                <span>Contact:</span>
+                                <span id="summary-contact"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">I agree to the terms and conditions and privacy policy</label>
+                        </div>
+                        
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-outline" id="back-to-step3">Back</button>
+                            <button type="submit" class="btn btn-secondary">Complete Donation</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Thank You Message (shown after form submission) -->
+                <div class="thank-you-message" id="thank-you">
+                    <div class="thank-you-icon">✓</div>
+                    <h2>Thank You for Your Donation!</h2>
+                    <p>Your contribution will make a real difference in our community's fight against food waste and hunger.</p>
+                    <p id="confirmation-message"></p>
+                    <p>We've sent a confirmation email with all the details to your email address.</p>
+                    <a href="index.html" class="btn">Return to Homepage</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>FoodShare</h3>
+                <p>Reducing food waste and fighting hunger through community-driven food donations.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">t</a>
+                    <a href="#" class="social-icon">in</a>
+                    <a href="#" class="social-icon">ig</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="Howitworks.html">How It Works</a></li>
+                    <li><a href="fooddonateform.php">Donate</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li>Email:  donatefooddonate@gmail.com
+                        
+                        </li>
+                    <li>Phone: +91(8467845450)</li>
+                    <li>
+                        
+                        Address:Kamani Sanikana Andheri Kurla Road Mumbai Maharashtra 400072</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 FoodShare. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mainNav = document.getElementById('main-nav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Close mobile menu if open
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                }
+            });
+        });
+
+        // Donation Type Selection
+        const donationOptions = document.querySelectorAll('.donation-option');
+        const selectedDonationTypeText = document.getElementById('selected-donation-type');
+        const donationTypeDescription = document.getElementById('donation-type-description');
+        const toStep2Button = document.getElementById('to-step2');
+        let selectedType = null;
+
+        donationOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove selected class from all options
+                donationOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                option.classList.add('selected');
+                
+                // Get the donation type
+                selectedType = option.getAttribute('data-type');
+                
+                // Update the text in step 1
+                const typeName = option.querySelector('h3').textContent;
+                selectedDonationTypeText.textContent = typeName;
+                
+                // Update the description
+                const typeDescription = option.querySelector('.donation-option-body p:first-child').textContent;
+                donationTypeDescription.textContent = typeDescription;
+                
+                // Enable the continue button
+                toStep2Button.disabled = false;
+                
+                // Scroll to the form
+                document.querySelector('.form-container').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form Navigation
+        const formSteps = document.querySelectorAll('.form-step');
+        const formProgress = document.getElementById('form-progress');
+        const progressSteps = document.querySelectorAll('.progress-step');
+
+        // Step 1 to Step 2
+        toStep2Button.addEventListener('click', () => {
+            // Hide all form fields first
+            document.getElementById('food-donation-fields').style.display = 'none';
+            document.getElementById('money-donation-fields').style.display = 'none';
+            document.getElementById('volunteer-donation-fields').style.display = 'none';
+            document.getElementById('restaurant-donation-fields').style.display = 'none';
+            document.getElementById('corporate-donation-fields').style.display = 'none';
+            document.getElementById('fooddrive-donation-fields').style.display = 'none';
+            
+            // Show the relevant fields based on donation type
+            if (selectedType) {
+                document.getElementById(`${selectedType}-donation-fields`).style.display = 'block';
+            }
+            
+            // Hide step 1, show step 2
+            formSteps[0].classList.remove('active');
+            formSteps[1].classList.add('active');
+            
+            // Update progress bar
+            formProgress.style.width = '50%';
+            progressSteps[0].classList.remove('active');
+            progressSteps[1].classList.add('active');
+        });
+
+        // Back to Step 1
+        document.getElementById('back-to-step1').addEventListener('click', () => {
+            formSteps[1].classList.remove('active');
+            formSteps[0].classList.add('active');
+            
+            formProgress.style.width = '25%';
+            progressSteps[1].classList.remove('active');
+            progressSteps[0].classList.add('active');
+        });
+
+        // Step 2 to Step 3
+        document.getElementById('to-step3').addEventListener('click', () => {
+            formSteps[1].classList.remove('active');
+            formSteps[2].classList.add('active');
+            
+            formProgress.style.width = '75%';
+            progressSteps[1].classList.remove('active');
+            progressSteps[2].classList.add('active');
+        });
+
+        // Back to Step 2
+        document.getElementById('back-to-step2').addEventListener('click', () => {
+            formSteps[2].classList.remove('active');
+            formSteps[1].classList.add('active');
+            
+            formProgress.style.width = '50%';
+            progressSteps[2].classList.remove('active');
+            progressSteps[1].classList.add('active');
+        });
+
+        // Step 3 to Step 4
+        document.getElementById('to-step4').addEventListener('click', () => {
+            // Populate summary
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const email = document.getElementById('email').value;
+            
+            document.getElementById('summary-type').textContent = selectedDonationTypeText.textContent;
+            document.getElementById('summary-contact').textContent = `${firstName} ${lastName} (${email})`;
+            
+            // Populate details based on donation type
+            const summaryDetails = document.getElementById('summary-details');
+            summaryDetails.innerHTML = '';
+            
+            if (selectedType === 'food') {
+                const foodType = document.getElementById('food-type').value;
+                const quantity = document.getElementById('food-quantity').value;
+                const unit = document.getElementById('quantity-unit').value;
+                const frequency = document.querySelector('input[name="frequency"]:checked').value;
+                
+                addSummaryItem(summaryDetails, 'Food Type', document.getElementById('food-type').options[document.getElementById('food-type').selectedIndex].text);
+                addSummaryItem(summaryDetails, 'Quantity', `${quantity} ${unit}`);
+                addSummaryItem(summaryDetails, 'Frequency', frequency);
+            } else if (selectedType === 'money') {
+                let amount;
+                const amountRadio = document.querySelector('input[name="amount"]:checked');
+                if (amountRadio.value === 'custom') {
+                    amount = `$${document.getElementById('custom-amount').value}`;
+                } else {
+                    amount = `$${amountRadio.value}`;
+                }
+                const frequency = document.querySelector('input[name="money-frequency"]:checked').value;
+                const allocation = document.getElementById('donation-allocation').options[document.getElementById('donation-allocation').selectedIndex].text;
+                
+                addSummaryItem(summaryDetails, 'Amount', amount);
+                addSummaryItem(summaryDetails, 'Frequency', frequency);
+                addSummaryItem(summaryDetails, 'Allocation', allocation);
+            } else if (selectedType === 'volunteer') {
+                const area = document.getElementById('volunteer-area').options[document.getElementById('volunteer-area').selectedIndex].text;
+                const time = document.getElementById('availability-time').options[document.getElementById('availability-time').selectedIndex].text;
+                const frequency = document.querySelector('input[name="volunteer-frequency"]:checked').value;
+                
+                addSummaryItem(summaryDetails, 'Area', area);
+                addSummaryItem(summaryDetails, 'Time', time);
+                addSummaryItem(summaryDetails, 'Frequency', frequency);
+            } else if (selectedType === 'restaurant') {
+                const name = document.getElementById('restaurant-name').value;
+                const type = document.getElementById('restaurant-type').options[document.getElementById('restaurant-type').selectedIndex].text;
+                const frequency = document.querySelector('input[name="restaurant-frequency"]:checked').value;
+                
+                addSummaryItem(summaryDetails, 'Business', name);
+                addSummaryItem(summaryDetails, 'Type', type);
+                addSummaryItem(summaryDetails, 'Frequency', frequency);
+            } else if (selectedType === 'corporate') {
+                const company = document.getElementById('company-name').value;
+                const type = document.getElementById('sponsorship-type').options[document.getElementById('sponsorship-type').selectedIndex].text;
+                const level = document.querySelector('input[name="sponsorship-level"]:checked').value;
+                
+                addSummaryItem(summaryDetails, 'Company', company);
+                addSummaryItem(summaryDetails, 'Sponsorship', type);
+                addSummaryItem(summaryDetails, 'Level', level.charAt(0).toUpperCase() + level.slice(1));
+            } else if (selectedType === 'fooddrive') {
+                const org = document.getElementById('drive-organization').value;
+                const type = document.getElementById('drive-type').options[document.getElementById('drive-type').selectedIndex].text;
+                const startDate = document.getElementById('drive-start-date').value;
+                const endDate = document.getElementById('drive-end-date').value;
+                
+                addSummaryItem(summaryDetails, 'Organization', org);
+                addSummaryItem(summaryDetails, 'Type', type);
+                addSummaryItem(summaryDetails, 'Dates', `${startDate} to ${endDate}`);
+            }
+            
+            formSteps[2].classList.remove('active');
+            formSteps[3].classList.add('active');
+            
+            formProgress.style.width = '100%';
+            progressSteps[2].classList.remove('active');
+            progressSteps[3].classList.add('active');
+        });
+
+        function addSummaryItem(container, label, value) {
+            const div = document.createElement('div');
+            div.className = 'summary-item';
+            div.innerHTML = `<span>${label}:</span><span>${value}</span>`;
+            container.appendChild(div);
+        }
+
+        // Back to Step 3
+        document.getElementById('back-to-step3').addEventListener('click', () => {
+            formSteps[3].classList.remove('active');
+            formSteps[2].classList.add('active');
+            
+            formProgress.style.width = '75%';
+            progressSteps[3].classList.remove('active');
+            progressSteps[2].classList.add('active');
+        });
+
+        // Form Submission
+        document.getElementById('donation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if terms are accepted
+            if (!document.getElementById('terms').checked) {
+                alert('Please accept the terms and conditions to proceed.');
+                return;
+            }
+            
+            // Hide form, show thank you message
+            document.querySelector('.form-container > form').style.display = 'none';
+            document.getElementById('thank-you').style.display = 'block';
+            
+            // Customize confirmation message based on donation type
+            const firstName = document.getElementById('first-name').value;
+            let confirmationMessage = '';
+            
+            if (selectedType === 'food') {
+                confirmationMessage = `We'll be in touch shortly to arrange the pickup of your food donation.`;
+            } else if (selectedType === 'money') {
+                confirmationMessage = `Your financial contribution will help us provide meals to those in need.`;
+            } else if (selectedType === 'volunteer') {
+                confirmationMessage = `Our volunteer coordinator will contact you soon to discuss next steps.`;
+            } else if (selectedType === 'restaurant') {
+                confirmationMessage = `We'll reach out to establish a regular pickup schedule for your business.`;
+            } else if (selectedType === 'corporate') {
+                confirmationMessage = `Our partnership team will contact you to discuss your sponsorship details.`;
+            } else if (selectedType === 'fooddrive') {
+                confirmationMessage = `We'll help you organize a successful food drive for your organization.`;
+            }
+            
+            document.getElementById('confirmation-message').textContent = confirmationMessage;
+            
+            // Scroll to thank you message
+            document.getElementById('thank-you').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Custom Amount Toggle
+        document.querySelectorAll('input[name="amount"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    document.getElementById('custom-amount-group').style.display = 'block';
+                } else {
+                    document.getElementById('custom-amount-group').style.display = 'none';
+                }
+            });
+        });
+
+        // Set minimum date for date inputs
+        const today = new Date().toISOString().split('T')[0];
+        if (document.getElementById('expiry-date')) {
+            document.getElementById('expiry-date').setAttribute('min', today);
+        }
+        if (document.getElementById('drive-start-date')) {
+            document.getElementById('drive-start-date').setAttribute('min', today);
+        }
+        if (document.getElementById('drive-end-date')) {
+            document.getElementById('drive-end-date').setAttribute('min', today);
+        }
+
+        // Validate end date is after start date
+        if (document.getElementById('drive-start-date') && document.getElementById('drive-end-date')) {
+            document.getElementById('drive-start-date').addEventListener('change', function() {
+                document.getElementById('drive-end-date').setAttribute('min', this.value);
+            });
+        }
+    </script>
+</body>
+</html>

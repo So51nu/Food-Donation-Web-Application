@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Donate - Help Us Feed the World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FFA000;
+            --text-color: #333;
+            --bg-color: #f4f4f4;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .background-image.active {
+            opacity: 1;
+        }
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links li {
+            margin: 10px 15px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            padding: 60px 0;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #45a049;
+        }
+        .section {
+            padding: 60px 0;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+        .quote {
+            background: rgba(76, 175, 80, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+        }
+        .quote p {
+            font-size: 1.2rem;
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item img:hover {
+            transform: scale(1.05);
+        }
+        .pickup {
+            background: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 60px 0;
+        }
+        .pickup h2 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        .pickup p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .stat-item {
+            text-align: center;
+            margin: 20px;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+        .how-it-works {
+            background-color: #fff;
+            padding: 60px 0;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .step-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-right: 20px;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .step h3 {
+            margin-bottom: 10px;
+        }
+        .food-waste-facts {
+            background-color: #f9f9f9;
+            padding: 60px 0;
+        }
+        .fact-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .fact-item {
+            flex-basis: calc(33.333% - 20px);
+            margin: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .fact-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .donation-types {
+            padding: 60px 0;
+        }
+        .donation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .donation-item {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .donation-item h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        .volunteer-opportunities {
+            background-color: #f0f8ff;
+            padding: 60px 0;
+        }
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .opportunity-item {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .opportunity-item:hover {
+            transform: translateY(-5px);
+        }
+        .opportunity-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .success-stories {
+            padding: 60px 0;
+            background-color: #fff;
+        }
+        .story-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .story-item {
+            flex-basis: calc(50% - 20px);
+            margin: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .story-item h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        .faq {
+            background-color: #f9f9f9;
+            padding: 60px 0;
+        }
+        .faq-item {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .faq-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .faq-item p {
+            display: none;
+            margin-top: 10px;
+        }
+        footer {
+            background: rgba(51, 51, 51, 0.8);
+            color: #fff;
+            padding: 60px 0;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .footer-section {
+            flex: 1;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            min-width: 200px;
+        }
+        .footer-section h3 {
+            margin-bottom: 20px;
+        }
+        .social-icons a {
+            color: #fff;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        /* Mobile Menu Styles */
+        .mobile-menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            background-color: #fff;
+            z-index: 1001;
+            overflow-y: auto;
+            transition: left 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            left: 0;
+        }
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .mobile-menu-close {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .mobile-nav-links {
+            padding: 20px;
+        }
+        .mobile-nav-links li {
+            margin-bottom: 15px;
+            list-style: none;
+        }
+        .mobile-nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        .mobile-nav-links a:hover {
+            color: var(--primary-color);
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 40px;
+            }
+        }
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .fact-item, .story-item {
+                flex-basis: calc(50% - 20px);
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .btn {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-toggle {
+                display: block;
+            }
+            .mobile-menu {
+                display: block;
+            }
+            .footer-content {
+                flex-direction: column;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .quote p {
+                font-size: 1rem;
+            }
+            .pickup h2 {
+                font-size: 1.5rem;
+            }
+            .pickup p {
+                font-size: 1rem;
+            }
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            .fact-item, .donation-item, .story-item {
+                flex-basis: 100%;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .btn {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+            .stat-number {
+                font-size: 2rem;
+            }
+            .stat-label {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="background-image" style="background-image: url('11.webp');"></div>
+        <div class="background-image" style="background-image: url('12.webp');"></div>
+        <div class="background-image" style="background-image: url('13.webp');"></div>
+        <div class="background-image" style="background-image: url('14.webp');"></div>
+        <div class="background-image" style="background-image: url('15.webp');"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Food Donate</div>
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="Impact.html">Impact</a></li>
+                    <li><a href="Howitworks.html">How It Works</a></li>
+                    <li><a href="fooswaste.html">Food Waste</a></li>
+                    <li><a href="Donationtype.html">Donation Types</a></li>
+                    <li><a href="Volienter.html">Volunteer</a></li>
+                    <li><a href="Success_story.html">Success Stories</a></li>
+                    <li><a href="FAQ3.html">FAQ</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="profile.php">Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">Food Donate</div>
+            <div class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="home.html">Home</a></li>
+                    <li><a href="Impact.html">Impact</a></li>
+                    <li><a href="Howitworks.html">How It Works</a></li>
+                    <li><a href="fooswaste.html">Food Waste</a></li>
+                    <li><a href="Donationtype.html">Donation Types</a></li>
+                    <li><a href="Volienter.html">Volunteer</a></li>
+                    <li><a href="Success_story.html">Success Stories</a></li>
+                    <li><a href="FAQ3.html">FAQ</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="profile.php">Profile</a></li>
+        </ul>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <section class="hero" id="home">
+        <div class="hero-content container">
+            <h1>Help Us Feed the World</h1>
+            <p>Your donation can make a difference in someone's life today</p>
+            <a href="fooddonateform.php" class="btn">Donate Food Now</a>
+            
+
+        </div>
+    </section>
+
+    <section class="quote">
+        <div class="container">
+            <p>"Cutting food waste is a delicious way of saving money, helping to feed the world and protect the planet."</p>
+        </div>
+    </section>
+
+    <section class="section" id="impact">
+        <div class="container">
+            <h2 class="section-title">Our Impact</h2>
+            <div class="gallery">
+                <div class="gallery-item"><img src="3.webp" alt="Volunteers distributing food"></div>
+                <div class="gallery-item"><img src="6.webp" alt="Happy family receiving food donation"></div>
+                <div class="gallery-item"><img src="10.webp" alt="Food donation drive"></div>
+                <div class="gallery-item"><img src="7.webp" alt="Community kitchen serving meals"></div>
+                <div class="gallery-item"><img src="8.webp" alt="Children enjoying nutritious meal"></div>
+                <div class="gallery-item"><img src="9.webp" alt="Grocery store donating surplus food"></div>
+                <div class="gallery-item"><img src="13.webp" alt="Children enjoying nutritious meal"></div>
+                <div class="gallery-item"><img src="16.webp" alt="Grocery store donating surplus food"></div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-label">Meals Donated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Families Helped</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Partner Organizations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pickup">
+        <div class="container">
+            <h2>Door Pickup Service</h2>
+            <p>Your donation will be immediately collected and sent to those in need</p>
+                    </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Register as a Donor</h3>
+                    <p>Sign up on our platform and provide your details to become a food donor. We welcome individuals, restaurants, supermarkets, and other food businesses.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Schedule a Pickup</h3>
+                    <p>Let us know when you have surplus food available, and we'll arrange a convenient pickup time. Our team is flexible and can accommodate your schedule.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>We Collect Your Donation</h3>
+                    <p>Our team will arrive at your doorstep to collect the food donation. We ensure proper handling and transportation of all food items to maintain their quality and safety.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Food Reaches Those in Need</h3>
+                    <p>We distribute the collected food to local shelters, food banks, and families in need. Your donation directly impacts the lives of people in your community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="food-waste-facts" id="food-waste">
+        <div class="container">
+            <h2 class="section-title">Food Waste Facts</h2>
+            <div class="fact-container">
+                <div class="fact-item">
+                    <h3>Global Impact</h3>
+                    <p>Approximately 1.3 billion tonnes of food is wasted globally each year, which is enough to feed 3 billion people.</p>
+                </div>
+                <div class="fact-item">
+                    <h3>Environmental Concern</h3>
+                    <p>Food waste is responsible for about 8% of global greenhouse gas emissions, contributing significantly to climate change.</p>
+                </div>
+                <div class="fact-item">
+                    <h3>Economic Loss</h3>
+                    <p>The economic cost of food waste is estimated at $1 trillion per year, affecting both developed and developing countries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="donation-types" id="donation-types">
+        <div class="container">
+            <h2 class="section-title">Types of Food Donations We Accept</h2>
+            <div class="donation-grid">
+                <div class="donation-item">
+                    <h3>Non-Perishable Foods</h3>
+                    <p>Canned goods, pasta, rice, cereals, and other shelf-stable items are always in high demand.</p>
+                </div>
+                <div class="donation-item">
+                    <h3>Fresh Produce</h3>
+                    <p>Fruits and vegetables that are still fresh and edible can provide essential nutrients to those in need.</p>
+                </div>
+                <div class="donation-item">
+                    <h3>Dairy Products</h3>
+                    <p>Milk, cheese, and yogurt that are within their expiration dates are valuable protein sources.</p>
+                </div>
+                <div class="donation-item">
+                    <h3>Baked Goods</h3>
+                    <p>Day-old bread, pastries, and other baked items can be a treat for families struggling with food insecurity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="volunteer-opportunities" id="volunteer">
+        <div class="container">
+            <h2 class="section-title">Volunteer Opportunities</h2>
+            <div class="opportunity-grid">
+                <div class="opportunity-item">
+                    <h3>Food Sorter</h3>
+                    <p>Help us sort and organize donated food items in our warehouse. This role is crucial for efficient distribution.</p>
+                </div>
+                <div class="opportunity-item">
+                    <h3>Delivery Driver</h3>
+                    <p>Use your own vehicle to deliver food to local shelters and families in need. Fuel costs are reimbursed.</p>
+                </div>
+                <div class="opportunity-item">
+                    <h3>Community Outreach</h3>
+                    <p>Spread awareness about food waste and our donation programs in your local community.</p>
+                </div>
+                <div class="opportunity-item">
+                    <h3>Event Coordinator</h3>
+                    <p>Help organize food drives and fundraising events to support our mission.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="success-stories" id="success-stories">
+        <div class="container">
+            <h2 class="section-title">Success Stories</h2>
+            <div class="story-container">
+                <div class="story-item">
+                    <h3>The Johnson Family</h3>
+                    <p>"Food Donate has been a lifesaver for our family. As a single mother of three, I struggled to put food on the table. Thanks to this program, my children now have nutritious meals every day."</p>
+                </div>
+                <div class="story-item">
+                    <h3>Green Grocer Initiative</h3>
+                    <p>"As a local grocery store, we hated seeing good food go to waste. Partnering with Food Donate has allowed us to reduce our waste significantly while helping our community."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What types of food can I donate?</h3>
+                <p>We accept a wide range of food items, including non-perishable goods, fresh produce, dairy products, and baked goods. Please ensure all items are within their expiration dates and have not been opened or partially consumed.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I schedule a food pickup?</h3>
+                <p>You can schedule a pickup through our website or by calling our hotline. We'll arrange a convenient time for our team to collect your donation.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I volunteer if I don't have much time?</h3>
+                <p>We have various volunteer opportunities that can fit different schedules. Even a few hours a month can make a significant difference.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>We collect excess food from donors and distribute it to those in need, reducing waste and fighting hunger in our communities.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#impact">Our Impact</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#food-waste">Food Waste Facts</a></li>
+                    <li><a href="#donation-types">Donation Types</a></li>
+                    <li><a href="#volunteer">Volunteer</a></li>
+                    <li><a href="#success-stories">Success Stories</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Phone: (+91) 8467845450</p>
+                <p>Email: donatefooddonate@gmail.com</p>
+                <p>Address:Kamani Sanikana Andheri Kurla Road Mumbai Maharashtra 400072</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/?lang=en-in" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/uas/login?session_redirect=https%3A%
+                    2F%2Fwww.linkedin.com%2Ffeed%2F%3Ftrk%3Dguest_homepage-basic_nav-header-signin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const backgroundImages = document.querySelectorAll('.background-image');
+        let currentIndex = 0;
+
+        function changeBackground() {
+            backgroundImages[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % backgroundImages.length;
+            backgroundImages[currentIndex].classList.add('active');
+        }
+
+        // Set the first image as active
+        backgroundImages[0].classList.add('active');
+
+        // Change background every 5 seconds
+        setInterval(changeBackground, 5000);
+
+        // FAQ Toggle
+        const faqItems = document.querySelectorAll('.faq-item h3');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            overlay.style.display = mobileMenu.classList.contains('active') ? 'block' : 'none';
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+        overlay.addEventListener('click', toggleMobileMenu);
+
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = document.querySelectorAll('.mobile-nav-links a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMobileMenu();
+            });
+        });
+
+        // Responsive navigation
+        function handleResponsiveNav() {
+            if (window.innerWidth > 768) {
+                mobileMenu.classList.remove('active');
+                overlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        window.addEventListener('resize', handleResponsiveNav);
+        handleResponsiveNav();
+    </script>
+</body>
+</html>

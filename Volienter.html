@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer With Us | FoodShare</title>
+    <style>
+        /* ===== VARIABLES ===== */
+        :root {
+            --primary: #d651f4;
+            --primary-light: #f0f425;
+            --primary-dark: #29e989;
+            --secondary: #FF9800;
+            --secondary-light: #FFCC80;
+            --secondary-dark: #F57C00;
+            --accent: #2196F3;
+            --accent-light: #90CAF9;
+            --text: #333333;
+            --text-light: #757575;
+            --light-bg: #f9f9f9;
+            --white: #ffffff;
+            --gray: #757575;
+            --light-gray: #e0e0e0;
+            --dark-gray: #424242;
+            --success: #da2dea;
+            --warning: #FFC107;
+            --error: #F44336;
+            --info: #2196F3;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s ease;
+            --max-width: 1200px;
+        }
+
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text);
+            line-height: 1.6;
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button, input, select, textarea {
+            font: inherit;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* ===== LAYOUT & CONTAINERS ===== */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            color: var(--primary-dark);
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-center {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flex-between {
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flex-column {
+            flex-direction: column;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* ===== BUTTONS & INTERACTIVE ELEMENTS ===== */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-white {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            background-color: var(--light-gray);
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background-color: var(--white);
+            color: var(--text);
+            box-shadow: var(--shadow-md);
+            padding: 0.7rem 0;
+        }
+
+        header.scrolled .logo {
+            color: var(--primary);
+        }
+
+        header.scrolled .nav-links a {
+            color: var(--text);
+        }
+
+        header.scrolled .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        header.scrolled .btn-nav {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            font-weight: 500;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-nav {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            min-height: 600px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/placeholder.svg?height=800&width=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px; /* Account for fixed header */
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ===== WHY VOLUNTEER SECTION ===== */
+        .why-volunteer {
+            background-color: var(--white);
+        }
+
+        .benefit-card {
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            background-color: var(--primary-light);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            opacity: 0.8;
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .benefit-card p {
+            color: var(--text-light);
+        }
+
+        /* ===== VOLUNTEER OPPORTUNITIES SECTION ===== */
+        .opportunities {
+            background-color: var(--light-bg);
+        }
+
+        .opportunity-card {
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .opportunity-img-container {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .opportunity-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .opportunity-card:hover .opportunity-img {
+            transform: scale(1.05);
+        }
+
+        .opportunity-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .opportunity-content h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .opportunity-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .opportunity-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .opportunity-time {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .opportunity-time span {
+            margin-left: 0.5rem;
+        }
+
+        /* ===== VOLUNTEER STORIES SECTION ===== */
+        .stories {
+            background-color: var(--primary-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stories::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/placeholder.svg?height=500&width=1600');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+        }
+
+        .story-card {
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            z-index: 1;
+            height: 100%;
+        }
+
+        .story-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 3px solid var(--primary-light);
+        }
+
+        .story-author h3 {
+            margin-bottom: 0.3rem;
+            color: var(--primary-dark);
+        }
+
+        .story-role {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .story-quote {
+            position: relative;
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.8;
+            padding: 0 1rem;
+        }
+
+        .story-quote::before,
+        .story-quote::after {
+            content: '"';
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: bold;
+            position: absolute;
+        }
+
+        .story-quote::before {
+            top: -10px;
+            left: -10px;
+        }
+
+        .story-quote::after {
+            bottom: -30px;
+            right: -10px;
+        }
+
+        /* ===== APPLICATION FORM SECTION ===== */
+        .application {
+            background-color: var(--white);
+        }
+
+        .form-container {
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(240, 205, 30, 0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-item input {
+            margin-right: 0.5rem;
+        }
+
+        .form-submit {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .form-note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        /* ===== FAQ SECTION ===== */
+        .faq {
+            background-color: var(--light-bg);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary-dark);
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: rgba(130, 223, 238, 0.05);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        /* ===== EVENTS SECTION ===== */
+        .events {
+            background-color: var(--white);
+        }
+
+        .events-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            display: flex;
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .event-date {
+            min-width: 120px;
+            background-color: var(--primary);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .event-day {
+            font-size: 2.5rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .event-month {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .event-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .event-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .event-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .event-meta-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .event-meta-item span {
+            margin-left: 0.5rem;
+        }
+
+        .event-description {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* ===== GALLERY SECTION ===== */
+        .gallery {
+            background-color: var(--light-bg);
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            color: var(--white);
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .gallery-caption h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 90vh;
+            border: 5px solid var(--white);
+            border-radius: var(--radius-sm);
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            width: 100%;
+            color: var(--white);
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+            z-index: 2001;
+        }
+
+        .lightbox-prev,
+        .lightbox-next {
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* ===== RECOGNITION SECTION ===== */
+        .recognition {
+            background-color: var(--white);
+        }
+
+        .volunteer-spotlight {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .spotlight-card {
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            width: 300px;
+            transition: var(--transition);
+        }
+
+        .spotlight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .spotlight-img-container {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .spotlight-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .spotlight-card:hover .spotlight-img {
+            transform: scale(1.05);
+        }
+
+        .spotlight-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .spotlight-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .spotlight-role {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .spotlight-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .spotlight-stat {
+            text-align: center;
+        }
+
+        .spotlight-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .spotlight-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .spotlight-quote {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .spotlight-badge {
+            display: inline-block;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 0.3rem;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-method {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            width: 200px;
+            transition: var(--transition);
+        }
+
+        .contact-method:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .contact-method h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .contact-info a {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        .contact-info a:hover {
+            color: var(--secondary-light);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 5rem 1rem 2rem;
+        }
+
+        .footer-content {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            color: var(--white);
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .footer-section p {
+            color: var(--light-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        /* ===== BACK TO TOP BUTTON ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        /* ===== RESPONSIVE STYLES ===== */
+        @media (max-width: 992px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-md);
+                z-index: 100;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.8rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .event-card {
+                flex-direction: column;
+            }
+
+            .event-date {
+                width: 100%;
+                padding: 1rem;
+                flex-direction: row;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 6rem 1rem;
+                height: auto;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    
+                    FoodShare
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="fooddonateform.php">Donate</a></li>
+                    <li><a href="Volienter.html" class="active">Volunteer</a></li>
+                    <li><a href="Impact.html">Impact</a></li>
+                 
+                    <li><a href="contact.html">Contact</a></li>
+                   
+                </ul>
+                
+                <button class="mobile-menu-btn">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Make a Difference in Your Community</h1>
+            <p>Join our team of dedicated volunteers and help us fight hunger one meal at a time. Your time and skills can change lives.</p>
+            <a href="fooddonateform.php" class="btn btn-lg">Donate Food  Now</a>
+        </div>
+    </section>
+
+    <section class="section why-volunteer" id="why-volunteer">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Volunteer With Us?</h2>
+                <p>Volunteering with FoodShare offers meaningful experiences and the chance to make a real impact in your community.</p>
+            </div>
+
+            <div class="grid grid-4">
+                <div class="benefit-card">
+                    <div class="benefit-icon">❤️</div>
+                    <h3>Make a Real Impact</h3>
+                    <p>Every hour you volunteer directly helps provide meals to families in need. Last year, our volunteers helped serve over 350,000 meals.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h3>Build Community</h3>
+                    <p>Meet like-minded individuals who share your passion for helping others and build lasting connections within your community.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌱</div>
+                    <h3>Develop New Skills</h3>
+                    <p>Gain valuable experience in food service, logistics, event planning, and more while making a difference in people's lives.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎓</div>
+                    <h3>Fulfill Service Hours</h3>
+                    <p>Whether for school, work, or personal growth, we provide documentation of your volunteer hours and the impact of your service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section opportunities" id="opportunities">
+        <div class="container">
+            <div class="section-title">
+                <h2>Volunteer Opportunities</h2>
+                <p>We have a variety of roles to match your skills, interests, and availability. Find the perfect fit for you!</p>
+            </div>
+
+            <div class="grid grid-4">
+                <div class="opportunity-card">
+                    <div class="opportunity-img-container">
+                        <img src="Cummunity.webp" alt="Food sorting volunteers" class="opportunity-img">
+                    </div>
+                    <div class="opportunity-content">
+                        <h3>Food Sorter</h3>
+                        <p>Help sort and package donated food items for distribution to families in need. This role is perfect for those who enjoy hands-on work and can commit to regular shifts.</p>
+                        <div class="opportunity-meta">
+                            <div class="opportunity-time">
+                                🕒 <span>2-4 hours/week</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="opportunity-card">
+                    <div class="opportunity-img-container">
+                        <img src="Delivery-partner.webp" alt="Delivery driver volunteer" class="opportunity-img">
+                    </div>
+                    <div class="opportunity-content">
+                        <h3>Delivery Driver</h3>
+                        <p>Deliver food packages to homebound seniors and families who cannot access our distribution centers. Must have a valid driver's license and reliable vehicle.</p>
+                        <div class="opportunity-meta">
+                            <div class="opportunity-time">
+                                🕒 <span>3-5 hours/week</span>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="opportunity-card">
+                    <div class="opportunity-img-container">
+                        <img src="Event-Cordinator.webp" alt="Event coordinator volunteer" class="opportunity-img">
+                    </div>
+                    <div class="opportunity-content">
+                        <h3>Event Coordinator</h3>
+                        <p>Help plan and execute food drives, fundraising events, and community outreach programs. Great for those with organizational and communication skills.</p>
+                        <div class="opportunity-meta">
+                            <div class="opportunity-time">
+                                🕒 <span>5-10 hours/month</span>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="opportunity-card">
+                    <div class="opportunity-img-container">
+                        <img src="admin.webp" alt="Administrative support volunteer" class="opportunity-img">
+                    </div>
+                    <div class="opportunity-content">
+                        <h3>Administrative Support</h3>
+                        <p>Assist with office tasks, data entry, phone calls, and correspondence. Perfect for those with administrative experience or those looking to develop these skills.</p>
+                        <div class="opportunity-meta">
+                            <div class="opportunity-time">
+                                🕒 <span>4-6 hours/week</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section stories" id="stories">
+        <div class="container">
+            <div class="section-title">
+                <h2>Volunteer Stories</h2>
+                <p>Hear from our dedicated volunteers about their experiences and the impact they've made.</p>
+            </div>
+
+            <div class="grid grid-3">
+                <div class="story-card">
+                    <div class="story-header">
+                        <img src="Img.jpg" alt="Michael Thompson" class="story-img">
+                        <div class="story-author">
+                            <h3>Michael Thompson</h3>
+                            <div class="story-role">Food Sorter, 2 years</div>
+                        </div>
+                    </div>
+                    <div class="story-quote">
+                        <p>Volunteering at FoodShare has been one of the most rewarding experiences of my life. Knowing that my few hours each week helps feed dozens of families gives me a sense of purpose I never found in my corporate job.</p>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-header">
+                        <img src="Img2.webp" alt="Sophia Rodriguez" class="story-img">
+                        <div class="story-author">
+                            <h3>Sophia Rodriguez</h3>
+                            <div class="story-role">Delivery Driver, 1 year</div>
+                        </div>
+                    </div>
+                    <div class="story-quote">
+                        <p>The connections I've made with the seniors on my delivery route are priceless. Many of them don't have family nearby, so our weekly visits have become something we both look forward to. It's about more than just delivering food.</p>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-header">
+                        <img src="Img1.webp" alt="David Chen" class="story-img">
+                        <div class="story-author">
+                            <h3>David Chen</h3>
+                            <div class="story-role">Event Coordinator, 3 years</div>
+                        </div>
+                    </div>
+                    <div class="story-quote">
+                        <p>I started volunteering to fulfill community service hours for school, but I stayed because of the amazing people and the tangible difference we make. Our last food drive collected enough to feed 500 families for a month!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="section faq" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about volunteering with FoodShare.</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">What is the minimum age to volunteer?</div>
+                    <div class="faq-answer">
+                        <p>The minimum age to volunteer independently is 16 years old. Youth ages 12-15 can volunteer with a parent or guardian. Children under 12 can participate in specific family-friendly events with adult supervision.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do I need any special skills or experience?</div>
+                    <div class="faq-answer">
+                        <p>No special skills are required for most volunteer positions. We provide all necessary training. However, some roles like delivery drivers require a valid driver's license, and administrative roles benefit from basic computer skills.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What is the time commitment?</div>
+                    <div class="faq-answer">
+                        <p>Time commitments vary by role. Some positions require regular weekly shifts (2-4 hours), while others are more flexible or event-based. We work with your schedule to find the best fit for you.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can I volunteer as part of a group?</div>
+                    <div class="faq-answer">
+                        <p>Yes! We welcome corporate teams, community groups, religious organizations, and schools. Group volunteering is a great team-building activity and makes a significant impact. Contact our volunteer coordinator to arrange group opportunities.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do you provide documentation for service hours?</div>
+                    <div class="faq-answer">
+                        <p>Yes, we're happy to provide documentation of your volunteer hours for school, work, or court-ordered community service. Please let us know in advance if you need this documentation.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What COVID-19 safety measures are in place?</div>
+                    <div class="faq-answer">
+                        <p>We follow all local health guidelines and have implemented enhanced cleaning protocols, social distancing measures, and mask requirements when appropriate. The safety of our volunteers and the communities we serve is our top priority.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section events" id="events">
+        <div class="container">
+            <div class="section-title">
+                <h2>Upcoming Volunteer Events</h2>
+                <p>Check out these upcoming opportunities to get involved and make a difference.</p>
+            </div>
+
+            <div class="events-container">
+                <div class="event-card">
+                    <div class="event-date">
+                        <div class="event-day">15</div>
+                        <div class="event-month">Jun</div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Community Food Drive</h3>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                🕒 <span>9:00 AM - 2:00 PM</span>
+                            </div>
+                            <div class="event-meta-item">
+                                📍 <span>Central Park, Main Entrance</span>
+                            </div>
+                            <div class="event-meta-item">
+                                👥 <span>20 volunteers needed</span>
+                            </div>
+                        </div>
+                        <div class="event-description">
+                            <p>Help us collect food donations from the community. Volunteers will assist with setting up collection stations, accepting donations, sorting items, and loading them into our trucks.</p>
+                        </div>
+                        <div class="event-actions">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-date">
+                        <div class="event-day">22</div>
+                        <div class="event-month">Jun</div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Senior Meal Delivery Day</h3>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                🕒 <span>10:00 AM - 1:00 PM</span>
+                            </div>
+                            <div class="event-meta-item">
+                                📍 <span>FoodShare Distribution Center</span>
+                            </div>
+                            <div class="event-meta-item">
+                                👥 <span>15 volunteers needed</span>
+                            </div>
+                        </div>
+                        <div class="event-description">
+                            <p>Help prepare and deliver meals to homebound seniors in our community. Drivers and companions are needed to bring food and friendly conversation to elderly residents.</p>
+                        </div>
+                        <div class="event-actions">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-date">
+                        <div class="event-day">29</div>
+                        <div class="event-month">Jun</div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Warehouse Sorting Day</h3>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                🕒 <span>1:00 PM - 5:00 PM</span>
+                            </div>
+                            <div class="event-meta-item">
+                                📍 <span>FoodShare Warehouse</span>
+                            </div>
+                            <div class="event-meta-item">
+                                👥 <span>25 volunteers needed</span>
+                            </div>
+                        </div>
+                        <div class="event-description">
+                            <p>Join us for a high-impact day of sorting and packaging donated food items. We'll be preparing food boxes for our weekly distribution to families in need throughout the region.</p>
+                        </div>
+                        <div class="event-actions">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Volunteer Gallery</h2>
+                <p>See our amazing volunteers in action making a difference in our community.</p>
+            </div>
+
+            <div class="gallery-container">
+                <div class="gallery-item" data-caption="Volunteers sorting donations at our warehouse">
+                    <img src="56.webp" alt="Volunteers sorting donations" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Sorting Donations</h4>
+                            <p>Our dedicated team sorting food donations</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="Community food drive at Central Park">
+                    <img src="36.webp" alt="Community food drive" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Community Food Drive</h4>
+                            <p>Collecting donations at our monthly food drive</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="Volunteers preparing meal packages">
+                    <img src="43.webp" alt="Meal preparation" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Meal Preparation</h4>
+                            <p>Preparing nutritious meals for distribution</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="Delivery team loading vehicles">
+                    <img src="Delivery-partner.webp" alt="Delivery team" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Delivery Team</h4>
+                            <p>Our delivery volunteers loading up for distribution</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="Volunteer appreciation event">
+                    <img src="47.webp" alt="Volunteer appreciation" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Volunteer Appreciation</h4>
+                            <p>Celebrating our amazing volunteers at our annual recognition event</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="Volunteer appreciation event">
+                    <img src="54.webp" alt="Volunteer appreciation" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Volunteer Appreciation</h4>
+                            <p>Celebrating our amazing volunteers at our annual recognition event</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="Volunteer appreciation event">
+                    <img src="50.webp" alt="Volunteer appreciation" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Volunteer Appreciation</h4>
+                            <p>Celebrating our amazing volunteers at our annual recognition event</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-caption="School group volunteering">
+                    <img src="41.jpg" alt="School volunteers" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4>Youth Volunteers</h4>
+                            <p>Local high school students helping at our distribution center</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section recognition" id="recognition">
+        <div class="container">
+            <div class="section-title">
+                <h2>Volunteer Recognition</h2>
+                <p>We celebrate the outstanding contributions of our dedicated volunteers who go above and beyond.</p>
+            </div>
+
+            <div class="volunteer-spotlight">
+                <div class="spotlight-card">
+                    <div class="spotlight-img-container">
+                        <img src="Img.jpg"alt="Jennifer Williams" class="spotlight-img">
+                    </div>
+                    <div class="spotlight-content">
+                        <h3>Sonu Yadav</h3>
+                        <div class="spotlight-role">Volunteer of the Year</div>
+                        <div class="spotlight-stats">
+                            <div class="spotlight-stat">
+                                <div class="spotlight-stat-value">520</div>
+                                <div class="spotlight-stat-label">Hours</div>
+                            </div>
+                            <div class="spotlight-stat">
+                                <div class="spotlight-stat-value">3</div>
+                                <div class="spotlight-stat-label">Years</div>
+                            </div>
+                            <div class="spotlight-stat">
+                                <div class="spotlight-stat-value">12K</div>
+                                <div class="spotlight-stat-label">Meals</div>
+                            </div>
+                        </div>
+                        <div class="spotlight-quote">
+                            "Volunteering gives me purpose and connects me to my community in ways I never imagined possible."
+                        </div>
+                        <div class="spotlight-badges">
+                            <span class="spotlight-badge">Food Sorter</span>
+                            <span class="spotlight-badge">Event Coordinator</span>
+                            <span class="spotlight-badge">Mentor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="spotlight-card">
+                    <div class="spotlight-img-container">
+                        <img src="ved.png" alt="Marcus Johnson" class="spotlight-img">
+                    </div>
+                    <div class="spotlight-content">
+                        <h3>Vedika Raut</h3>
+                        <div class="spotlight-role">Delivery Team Lead</div>
+                        <div class="spotlight-stats">
+                            <div class="spotlight-stat">
+                                <div class="spotlight-stat-value">380</div>
+                                <div class="spotlight-stat-label">Hours</div>
+                            </div>
+                            <div class="spotlight-stat">
+                                <div class="spotlight-stat-value">2</div>
+                                <div class="spotlight-stat-label">Years</div>
+                            </div>
+                            <div class="spotlight-stat">
+                                <div class="spotlight-stat-value">250</div>
+                                <div class="spotlight-stat-label">Deliveries</div>
+                            </div>
+                        </div>
+                        <div class="spotlight-quote">
+                            "The smiles on people's faces when I deliver their food packages make every minute worthwhile."
+                        </div>
+                        <div class="spotlight-badges">
+                            <span class="spotlight-badge">Driver</span>
+                            <span class="spotlight-badge">Team Lead</span>
+                            <span class="spotlight-badge">Trainer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="spotlight-card">
+                    <div class="spotlight-img-container">
+                        <img src="Sat.png" alt="Aisha Patel" class="spotlight-img">
+                    </div>
+                    <div class="spotlight-content">
+                        <h3>Satyam Shash</h3>
+                        <div class="spotlight-role">Rookie Volunteer of the Year</div>
+                        <div class="spotlight-stats">
+                            <div class="spotlight-stat">
+                                <div class="spotlight-stat-value">200</div>
+                                <div class="spotlight-stat-label">Hours</div>
+                            </div>
+                            <div class="spotlight-stat">
+                                <div class="spotlight-stat-value">1</div>
+                                <div class="spotlight-stat-label">Year</div>
+                            </div>
+                            <div class="spotlight-stat">
+                                <div class="spotlight-stat-value">5</div>
+                                <div class="spotlight-stat-label">Events</div>
+                            </div>
+                        </div>
+                        <div class="spotlight-quote">
+                            "I started volunteering during the pandemic and found my passion for community service."
+                        </div>
+                        <div class="spotlight-badges">
+                            <span class="spotlight-badge">Admin</span>
+                            <span class="spotlight-badge">Social Media</span>
+                            <span class="spotlight-badge">Food Sorter</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Our Volunteer Team</h2>
+                <p>Have questions about volunteering? Our volunteer coordination team is here to help.</p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email</h3>
+                        <div class="contact-info">
+                            <a href="mailto:volunteer@foodshare.org"></a>fooddonate@gmail.com
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">📞</div>
+                        <h3>Phone</h3>
+                        <div class="contact-info">
+                            <a href="tel:5551234567">(+91) 8467845450</a>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">👤</div>
+                        <h3>Coordinator</h3>
+                        <div class="contact-info">
+                            <p>Abhay Sharma</p>
+                            <p>Volunteer Manager</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="fooddonateform.php" class="btn btn-lg btn-white">Donate Food Today</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>FoodShare</h3>
+                <p>Working together to end hunger in our community through food donations, education, and support programs that create lasting change.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><span>FB</span></a>
+                    <a href="#" aria-label="Twitter"><span>TW</span></a>
+                    <a href="#" aria-label="Instagram"><span>IG</span></a>
+                    <a href="#" aria-label="YouTube"><span>YT</span></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="fooddonateform.php">Donate</a></li>
+                    <li><a href="Volienter.html">Volunteer</a></li>
+                    <li><a href="Impact.html">Impact</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>Kamani Sakinaka</li>
+                    <li>Andheri Mumbai</li>
+                    <li>fooddonate@gmail.com</li>
+                    <li>(+91) 8467845450</li>
+                    <li>Mon-Sat: 9am-5pm</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates on our impact and upcoming events.</p>
+                <form id="newsletter-form">
+                    <input type="email" placeholder="Your email" style="padding: 0.8rem; width: 100%; margin-bottom: 0.8rem; border: 1px solid var(--light-gray); border-radius: 4px; background-color: rgba(255, 255, 255, 0.1); color: var(--white);">
+                    <button type="submit" class="btn" style="width: 100%;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="copyright">
+                <p>&copy; 2025 FoodShare. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Accessibility</a>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to top">↑</a>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <img src="/placeholder.svg" alt="" class="lightbox-img" id="lightbox-img">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+        <div class="lightbox-nav">
+            <div class="lightbox-prev" id="lightbox-prev">←</div>
+            <div class="lightbox-next" id="lightbox-next">→</div>
+        </div>
+        <div class="lightbox-close" id="lightbox-close">×</div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Sticky header
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Back to top button
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // FAQ accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Form validation
+        const volunteerForm = document.getElementById('volunteer-form');
+        
+        volunteerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Basic validation
+            let isValid = true;
+            const requiredFields = volunteerForm.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = 'var(--error)';
+                } else {
+                    field.style.borderColor = 'var(--light-gray)';
+                }
+            });
+            
+            // Check if at least one interest is selected
+            const interests = volunteerForm.querySelectorAll('input[name="interests"]:checked');
+            if (interests.length === 0) {
+                isValid = false;
+                alert('Please select at least one volunteer interest.');
+            }
+            
+            // Check if at least one availability option is selected
+            const availability = volunteerForm.querySelectorAll('input[name="availability"]:checked');
+            if (availability.length === 0) {
+                isValid = false;
+                alert('Please select at least one availability option.');
+            }
+            
+            if (isValid) {
+                // In a real implementation, this would submit the form data
+                alert('Thank you for your interest in volunteering! We will contact you within 48 hours to discuss next steps.');
+                volunteerForm.reset();
+            }
+        });
+        
+        // Gallery lightbox
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        
+        let currentImageIndex = 0;
+        
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const imgSrc = item.querySelector('.gallery-img').src;
+                const caption = item.getAttribute('data-caption');
+                
+                lightboxImg.src = imgSrc;
+                lightboxCaption.textContent = caption;
+                lightbox.classList.add('active');
+                currentImageIndex = index;
+                
+                // Disable scrolling on body
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            // Re-enable scrolling
+            document.body.style.overflow = '';
+        });
+        
+        lightboxPrev.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
+            const prevItem = galleryItems[currentImageIndex];
+            const imgSrc = prevItem.querySelector('.gallery-img').src;
+            const caption = prevItem.getAttribute('data-caption');
+            
+            lightboxImg.src = imgSrc;
+            lightboxCaption.textContent = caption;
+        });
+        
+        lightboxNext.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
+            const nextItem = galleryItems[currentImageIndex];
+            const imgSrc = nextItem.querySelector('.gallery-img').src;
+            const caption = nextItem.getAttribute('data-caption');
+            
+            lightboxImg.src = imgSrc;
+            lightboxCaption.textContent = caption;
+        });
+        
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Newsletter form submission
+        const newsletterForm = document.getElementById('newsletter-form');
+        
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            
+            if (email) {
+                alert(`Thank you for subscribing with ${email}! You'll receive our next newsletter soon.`);
+                e.target.reset();
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

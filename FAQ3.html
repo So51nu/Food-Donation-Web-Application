@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodBridge - Food Donation FAQ</title>
+    <style>
+        :root {
+            --primary: #e67e22;
+            --primary-dark: #d35400;
+            --primary-light: #f39c12;
+            --secondary: #27ae60;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --background: #f9f9f9;
+            --card: #ffffff;
+            --border: #ecf0f1;
+            --accent: #3498db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover, 
+        nav ul li a.active {
+            color: var(--primary);
+        }
+
+        nav ul li a:hover:after, 
+        nav ul li a.active:after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/placeholder.svg?height=600&width=1200');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-top: 70px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 0 10px;
+        }
+
+        .hero-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-btn.secondary {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+
+        .hero-btn.secondary:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .stat-item {
+            flex: 1;
+            min-width: 200px;
+            margin: 20px;
+            position: relative;
+        }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background-color: rgba(230, 126, 34, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: var(--primary);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: var(--text);
+        }
+
+        /* Search Section */
+        .search-section {
+            padding: 60px 0;
+            background-color: var(--background);
+            text-align: center;
+        }
+
+        .search-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 20px;
+        }
+
+        /* Categories Section */
+        .categories-section {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: var(--text);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background-color: var(--card);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card.active {
+            border: 2px solid var(--primary);
+        }
+
+        .category-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .category-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .category-desc {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            background-color: var(--background);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: var(--card);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .faq-question-text {
+            display: flex;
+            align-items: center;
+        }
+
+        .question-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(230, 126, 34, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(230, 126, 34, 0.05);
+        }
+
+        .faq-question.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .faq-question.active .question-icon {
+            background-color: white;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s;
+            font-size: 20px;
+        }
+
+        .active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px 0 75px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 0 20px 20px 75px;
+            max-height: 1000px;
+        }
+
+        .faq-answer p {
+            margin-bottom: 15px;
+        }
+
+        .faq-answer ul, .faq-answer ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .faq-answer img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            background-color: var(--card);
+            border-radius: 10px;
+            display: none;
+        }
+
+        .no-results img {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/placeholder.svg?height=400&width=1200');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .contact-form-container {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(230, 126, 34, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .contact-details h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .contact-details p {
+            color: var(--text-light);
+        }
+
+        .contact-form {
+            background-color: var(--card);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .submit-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary-light);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .footer-logo span {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer-about {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer-column p,
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+            color: white;
+            font-size: 18px;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-menu {
+            list-style: none;
+        }
+
+        .footer-menu li {
+            margin-bottom: 10px;
+        }
+
+        .footer-menu a {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-menu a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            nav {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active {
+                max-height: 300px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+
+            .hero {
+                height: auto;
+                padding: 80px 0;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-btn {
+                display: block;
+                margin: 10px auto;
+                max-width: 200px;
+            }
+
+            .stat-item {
+                min-width: 150px;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .contact-container {
+                flex-direction: column;
+            }
+
+            .contact-info, .contact-form-container {
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .stat-item {
+                min-width: 100%;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-question {
+                padding: 15px;
+            }
+
+            .question-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+
+            .faq-answer.active {
+                padding: 0 15px 15px 60px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                 FoodBridge
+            </a>
+            <button class="mobile-toggle">☰</button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="fooddonateform.php">Donate</a></li>
+                    <li><a href="Volienter.html">Volunteer</a></li>
+                    <li><a href="FAQ3.html" class="active">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to your questions about our food donation platform and how we're working together to reduce food waste and fight hunger.</p>
+            <div>
+                <a href="#faq-section" class="hero-btn">Browse FAQs</a>
+                <a href="#contact-section" class="hero-btn secondary">Ask a Question</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-icon">🍲</div>
+                    <div class="stat-number">15,000+</div>
+                    <div class="stat-label">Meals Donated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">👨‍👩‍👧‍👦</div>
+                    <div class="stat-number">5,000+</div>
+                    <div class="stat-label">People Helped</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">🏢</div>
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Partner Organizations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">♻️</div>
+                    <div class="stat-number">8,500kg</div>
+                    <div class="stat-label">Food Saved</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="search-section">
+        <div class="container">
+            <h2 class="search-title">How can we help you?</h2>
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="faq-search" class="search-input" placeholder="Search for answers...">
+            </div>
+        </div>
+    </section>
+
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">Browse by Category</h2>
+            <div class="categories-grid">
+                <div class="category-card" data-category="donating">
+                    <img src="36.webp" alt="Donating Food" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Donating Food</h3>
+                        <p class="category-desc">Learn about the donation process and what foods you can donate.</p>
+                    </div>
+                </div>
+                <div class="category-card" data-category="receiving">
+                    <img src="43.webp" alt="Receiving Food" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Receiving Food</h3>
+                        <p class="category-desc">Find out how to request food assistance and eligibility requirements.</p>
+                    </div>
+                </div>
+                <div class="category-card" data-category="safety">
+                    <img src="45.webp" alt="Food Safety" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Food Safety</h3>
+                        <p class="category-desc">Information about our food safety standards and practices.</p>
+                    </div>
+                </div>
+                <div class="category-card" data-category="volunteer">
+                    <img src="41.jpg" alt="Volunteering" class="category-img">
+                    <div class="category-content">
+                        <h3 class="category-title">Volunteering</h3>
+                        <p class="category-desc">Discover how you can volunteer and make a difference.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item" data-category="donating">
+                    <div class="faq-question">
+                        <div class="faq-question-text">
+                            <div class="question-icon">🍎</div>
+                            <span>What types of food can I donate?</span>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept a wide variety of food donations, including:</p>
+                        <ul>
+                            <li>Non-perishable items (canned goods, pasta, rice, cereal)</li>
+                            <li>Fresh produce (fruits and vegetables)</li>
+                            <li>Dairy products (within expiration date)</li>
+                            <li>Baked goods</li>
+                            <li>Frozen foods (properly stored and transported)</li>
+                        </ul>
+                        <img src="34.webp" alt="Food donation examples">
+                        <p>All food must be unexpired, in good condition, and safe for consumption. For restaurants and businesses, we also accept prepared foods that have been properly stored and handled according to food safety guidelines.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="donating">
+                    <div class="faq-question">
+                        <div class="faq-question-text">
+                            <div class="question-icon">📝</div>
+                            <span>How does the donation process work?</span>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our donation process is simple and efficient:</p>
+                        <ol>
+                            <li>Create an account on our platform</li>
+                            <li>List the food items you wish to donate with details about quantity, type, and expiration dates</li>
+                            <li>Choose whether you'll drop off the items or need pickup service</li>
+                            <li>Submit your donation listing</li>
+                            <li>Our system will match your donation with local recipients or food banks</li>
+                            <li>Coordinate the exchange through our secure messaging system</li>
+                            <li>Complete the donation and receive confirmation</li>
+                        </ol>
+                        <img src="40.webp" alt="Donation process flowchart">
+                        <p>The entire process is designed to be quick and convenient while ensuring food safety and proper distribution to those in need.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="receiving">
+                    <div class="faq-question">
+                        <div class="faq-question-text">
+                            <div class="question-icon">👨‍👩‍👧‍👦</div>
+                            <span>Who is eligible to receive food donations?</span>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our platform serves:</p>
+                        <ul>
+                            <li>Individuals and families facing food insecurity</li>
+                            <li>Community organizations and shelters</li>
+                            <li>Food banks and pantries</li>
+                            <li>Schools and educational programs</li>
+                            <li>Senior centers and assisted living facilities</li>
+                        </ul>
+                        <img src="38.webp" alt="Food recipients">
+                        <p>Recipients can register on our platform and must meet basic eligibility requirements based on need. For individuals, this typically involves a simple self-attestation of need. For organizations, we require verification of non-profit status or community service mission. We aim to make the process dignified and accessible for all who need assistance.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="safety">
+                    <div class="faq-question">
+                        <div class="faq-question-text">
+                            <div class="question-icon">🛡️</div>
+                            <span>How do you ensure food safety?</span>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Food safety is our top priority. We maintain strict standards through:</p>
+                        <ul>
+                            <li>Comprehensive food safety guidelines for all donors and volunteers</li>
+                            <li>Temperature-controlled transportation for perishable items</li>
+                            <li>Regular training sessions on proper food handling</li>
+                            <li>Quality checks at pickup and delivery points</li>
+                            <li>Clear labeling requirements including allergen information</li>
+                            <li>Strict adherence to expiration dates and food quality standards</li>
+                        </ul>
+                        <img src="48.webp" alt="Food safety practices">
+                        <p>We also partner with local health departments and food safety experts to ensure our protocols meet or exceed all regulations. All volunteers who handle food receive proper training and certification.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="volunteer">
+                    <div class="faq-question">
+                        <div class="faq-question-text">
+                            <div class="question-icon">🤝</div>
+                            <span>How can I volunteer with FoodBridge?</span>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer various volunteer opportunities:</p>
+                        <ul>
+                            <li><strong>Food Runners:</strong> Transport donations from donors to recipients</li>
+                            <li><strong>Food Sorters:</strong> Help organize and prepare donations for distribution</li>
+                            <li><strong>Outreach Volunteers:</strong> Spread awareness about our platform in the community</li>
+                            <li><strong>Tech Support:</strong> Assist users with navigating our platform</li>
+                            <li><strong>Administrative Support:</strong> Help with coordination and documentation</li>
+                        </ul>
+                        <img src="41.jpg" alt="Volunteers in action">
+                        <p>To get started, visit our Volunteer page to register, view available opportunities, and sign up for shifts that match your schedule and interests. All volunteers receive proper training and support. You can commit to regular hours or participate in one-time events based on your availability.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="donating">
+                    <div class="faq-question">
+                        <div class="faq-question-text">
+                            <div class="question-icon">🏢</div>
+                            <span>Can businesses and restaurants donate through your platform?</span>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We especially encourage businesses and restaurants to partner with us. We offer:</p>
+                        <ul>
+                            <li>Streamlined donation processes designed for commercial quantities</li>
+                            <li>Scheduled recurring pickups for regular excess food</li>
+                            <li>Tax deduction documentation</li>
+                            <li>Liability protection under the Good Samaritan Food Donation Act</li>
+                            <li>Impact reports showing the community benefit of your donations</li>
+                            <li>Optional recognition in our partner network</li>
+                        </ul>
+                        <img src="51.webp" alt="Business food donation">
+                        <p>Our business donation specialists can work with you to create a customized donation plan that minimizes waste while maximizing community impact. Contact our business partnerships team at business@foodbridge.org to get started.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="receiving">
+                    <div class="faq-question">
+                        <div class="faq-question-text">
+                            <div class="question-icon">📱</div>
+                            <span>How do I request food assistance?</span>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>To receive food assistance:</p>
+                        <ol>
+                            <li>Create an account on our platform</li>
+                            <li>Complete a brief needs assessment</li>
+                            <li>Browse available donations in your area</li>
+                            <li>Request specific items that meet your needs</li>
+                            <li>Arrange pickup or delivery through our system</li>
+                        </ol>
+                        <img src="37.webp" alt="Food request process">
+                        <p>For urgent needs, you can use our "Emergency Request" feature, which prioritizes your request in our system. We also offer assistance with registration and food selection for those with limited technology access or special needs. Call our helpline at (555) 123-4567 if you need additional support.</p>
+                    </div>
+                </div>
+
+                <div class="no-results">
+                    <img src="/placeholder.svg?height=120&width=120" alt="No results found">
+                    <h3>No matching questions found</h3>
+                    <p>Try different keywords or ask us directly using the contact form below.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Make a Difference?</h2>
+                <p class="cta-text">Join our community of donors, volunteers, and recipients working together to reduce food waste and fight hunger in our communities.</p>
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact-section">
+        <div class="container">
+            <h2 class="section-title">Still Have Questions?</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-method">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>(+91) 8467845450</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>fooddonate@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Address</h4>
+                            <p>Kamani Sakinaka Mumbai Maharashtra 400072</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">⏰</div>
+                        <div class="contact-details">
+                            <h4>Hours</h4>
+                            <p>Monday-Friday: 9am-5pm</p>
+                            <p>Saturday: 10am-2pm</p>
+                        </div>
+                    </div>
+                    <img src="contact.jpeg" alt="Contact us" style="border-radius: 10px; margin-top: 20px; width: 100%;">
+                </div>
+                <div class="contact-form-container">
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" class="form-input" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="question-type" class="form-label">Question Category</label>
+                            <select id="question-type" class="form-input">
+                                <option value="donating">Donating Food</option>
+                                <option value="receiving">Receiving Food</option>
+                                <option value="volunteering">Volunteering</option>
+                                <option value="partnerships">Partnerships</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Your Question</label>
+                            <textarea id="message" class="form-textarea" placeholder="Type your question here..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-button">Send Question</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <div class="footer-logo">
+
+                        <span>FoodBridge</span>
+                    </div>
+                    <p class="footer-about">FoodBridge connects food donors with those in need through our innovative platform, reducing food waste and fighting hunger in our communities.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📱</a>
+                        <a href="#" class="social-link">📸</a>
+                        <a href="#" class="social-link">🐦</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="fooddonateform.php">Donate Food</a></li>
+                        <li><a href="Donationtype.html">Donate Type </a></li>
+                        <li><a href="Volienter.html">Volunteer</a></li>
+                        <li><a href="FAQ3.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-menu">
+                        <li><a href="#">Food Safety Guidelines</a></li>
+                        <li><a href="#">Donation Tax Benefits</a></li>
+                        <li><a href="#">Partner Organizations</a></li>
+                        <li><a href="Success_story.html">Success Stories</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-menu">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 FoodBridge. All rights reserved. | Food Donation Platform | Final Year Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const mainNav = document.getElementById('main-nav');
+            
+            mobileToggle.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+            });
+            
+            // FAQ accordion functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isActive = question.classList.contains('active');
+                    
+                    // Close all other open questions
+                    faqQuestions.forEach(q => {
+                        if (q !== question) {
+                            q.classList.remove('active');
+                            q.nextElementSibling.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current question
+                    if (!isActive) {
+                        question.classList.add('active');
+                        answer.classList.add('active');
+                    } else {
+                        question.classList.remove('active');
+                        answer.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Category filtering
+            const categoryCards = document.querySelectorAll('.category-card');
+            const faqItems = document.querySelectorAll('.faq-item');
+            const noResults = document.querySelector('.no-results');
+            
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Update active category
+                    categoryCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    let visibleItems = 0;
+                    
+                    // Filter FAQ items
+                    faqItems.forEach(item => {
+                        if (item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                            visibleItems++;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show/hide no results message
+                    if (visibleItems === 0) {
+                        noResults.style.display = 'block';
+                    } else {
+                        noResults.style.display = 'none';
+                    }
+                    
+                    // Reset search
+                    document.getElementById('faq-search').value = '';
+                    
+                    // Scroll to FAQ section
+                    document.getElementById('faq-section').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.getElementById('faq-search');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                let resultsFound = false;
+                
+                // Reset category selection
+                categoryCards.forEach(c => c.classList.remove('active'));
+                
+                if (searchTerm.length > 2) {
+                    faqItems.forEach(item => {
+                        const question = item.querySelector('.faq-question-text span').textContent.toLowerCase();
+                        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                        
+                        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                            item.style.display = 'block';
+                            resultsFound = true;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show/hide no results message
+                    if (resultsFound) {
+                        noResults.style.display = 'none';
+                    } else {
+                        noResults.style.display = 'block';
+                    }
+                } else if (searchTerm.length === 0) {
+                    // Show all items when search is cleared
+                    faqItems.forEach(item => {
+                        item.style.display = 'block';
+                    });
+                    noResults.style.display = 'none';
+                }
+            });
+            
+            // Form submission (prevent default for demo)
+            const contactForm = document.querySelector('.contact-form');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your question! We will respond to you shortly.');
+                this.reset();
+            });
+            
+            // Add animation class to elements as they come into view
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.stat-item, .category-card, .faq-item, .contact-form');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 50) {
+                        element.classList.add('fade-in');
+                    }
+                });
+            };
+            
+            // Run on load
+            animateOnScroll();
+            
+            // Run on scroll
+            window.addEventListener('scroll', animateOnScroll);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+    "name": "myprojects/app",
+    "authors": [
+        {
+            "name": "sonu yadav",
+            "email": "yadavsonu2484960@gmai.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "twilio/sdk": "*"
+    }
+}

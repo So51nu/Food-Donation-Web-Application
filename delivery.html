@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Delivery Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF6B6B; /* Warm coral */
+            --secondary-color: #6B46C1; /* Royal purple */
+            --accent-color: #4ECDC4;   /* Fresh teal */
+            --background-color: #f8f9fa;
+            --text-color: #2d3436;
+            --card-background: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 60px 0;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+            padding: 0 15%;
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-step .step-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--background-color);
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .progress-step.active .step-icon {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 30px;
+            left: 15%;
+            width: 70%;
+            height: 4px;
+            background-color: #e0e0e0;
+            z-index: 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 33%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .card {
+            background-color: var(--card-background);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .delivery-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, var(--background-color), #ffffff);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            background: #e0e0e0;
+            border-radius: 12px;
+            margin-top: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .map-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .donation-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .donation-item {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .donation-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 30px 0;
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .progress-tracker {
+                padding: 0 5%;
+            }
+            
+            .progress-bar {
+                width: 90%;
+                left: 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Food Journey Tracker</h1>
+            <p>Your Generosity in Motion 🚚💨</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="progress-tracker">
+            <div class="progress-step active">
+                <div class="step-icon"><i class="fas fa-box-open"></i></div>
+                <p>Package Received</p>
+            </div>
+            <div class="progress-step">
+                <div class="step-icon"><i class="fas fa-truck"></i></div>
+                <p>On the Way</p>
+            </div>
+            <div class="progress-step">
+                <div class="step-icon"><i class="fas fa-home"></i></div>
+                <p>Delivered</p>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="color: var(--secondary-color); margin-bottom: 20px;">Real-Time Tracking</h2>
+            <div class="delivery-info">
+                <div class="info-card">
+                    <h3><i class="fas fa-clock"></i> Estimated Arrival</h3>
+                    <p style="font-size: 1.5rem; color: var(--primary-color); margin-top: 10px;">1h 45m</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Current Location</h3>
+                    <p id="current-location" style="margin-top: 10px;">Fetching location...</p>
+                </div>
+            </div>
+            <div class="map-container">
+                <div class="map-overlay">
+                    <svg width="200" height="200" viewBox="0 0 24 24">
+                        <path class="animated-route" fill="none" stroke="var(--primary-color)" stroke-width="2" 
+                              d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="color: var(--secondary-color); margin-bottom: 20px;">Donation Details</h2>
+            <div class="donation-details">
+                <div class="donation-item">
+                    <i class="fas fa-carrot fa-2x"></i>
+                    <h3>Food Type</h3>
+                    <p>Fresh Vegetables</p>
+                </div>
+                <div class="donation-item">
+                    <i class="fas fa-weight-hanging fa-2x"></i>
+                    <h3>Quantity</h3>
+                    <p>8.5 kg</p>
+                </div>
+                <div class="donation-item">
+                    <i class="fas fa-thermometer-half fa-2x"></i>
+                    <h3>Storage</h3>
+                    <p>Refrigerated</p>
+                </div>
+                <div class="donation-item">
+                    <i class="fas fa-info-circle fa-2x"></i>
+                    <h3>Special Notes</h3>
+                    <p>Organic Produce</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="home.html" class="cta-button">
+                <i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Return to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Today's Networks| Making Every Meal Count</p>
+    </footer>
+
+    <script>
+        // Fetch user's current location
+        const locationElement = document.getElementById('current-location');
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    locationElement.textContent = `Lat: ${latitude.toFixed(4)}, Long: ${longitude.toFixed(4)}`;
+                },
+                (error) => {
+                    locationElement.textContent = "Unable to fetch location.";
+                    console.error("Error fetching location:", error);
+                }
+            );
+        } else {
+            locationElement.textContent = "Geolocation is not supported by this browser.";
+        }
+
+        // Animated progress simulation
+        let progress = 0;
+        const progressBar = document.querySelector('.progress-bar-fill');
+        const steps = document.querySelectorAll('.progress-step');
+
+        const updateProgress = () => {
+            progress += 33.33;
+            progressBar.style.width = `${progress}%`;
+            
+            if(progress <= 33.33) {
+                steps[1].classList.add('active');
+            } else if(progress <= 66.66) {
+                steps[2].classList.add('active');
+            }
+        }
+
+        setTimeout(updateProgress, 2000);
+        setTimeout(updateProgress, 4500);
+    </script>
+</body>
+</html>

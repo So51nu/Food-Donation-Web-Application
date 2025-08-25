@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Transition Background</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #000;
+            position: relative;
+        }
+
+        /* Background Container */
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .background-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            clip-path: inset(0 0 0 0); /* Initially fully visible */
+            transition: clip-path 1.5s ease-in-out; /* Smooth split transition */
+            opacity: 0; /* Hidden initially */
+        }
+
+        /* Background layers for images */
+        .background-layer:nth-child(1) {
+            background-image: url('1.webp');
+            animation: splitTransition 21s infinite; /* Total cycle: 7 * 3 layers */
+        }
+
+        .background-layer:nth-child(2) {
+            background-image: url('2.webp');
+            animation: splitTransition 21s infinite 7s; /* Starts after 7 seconds */
+        }
+
+        .background-layer:nth-child(3) {
+            background-image: url('3.webp');
+            animation: splitTransition 21s infinite 14s; /* Starts after 14 seconds */
+        }
+
+        /* Keyframes for split transition */
+        @keyframes splitTransition {
+            0% { opacity: 0; clip-path: inset(50% 0 50% 0); }
+            14.28% { opacity: 1; clip-path: inset(0 0 0 0); } /* Fully visible */
+            57.14% { opacity: 1; clip-path: inset(0 0 0 0); } /* Hold visible */
+            71.42% { opacity: 0; clip-path: inset(50% 0 50% 0); } /* Split effect out */
+            100% { opacity: 0; }
+        }
+
+        .logo {
+            font-size: 50px;
+            padding-top: 30px;
+            animation: slideDown 2s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .para {
+            font-size: 40px;
+            margin-top: 20px;
+            animation: slideUp 2s ease-in-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Glowing Button with Hover Effect */
+        .button-glowing {
+            display: inline-block;
+            font-size: 20px;
+            background: #FF5E62;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 10px 10px;
+            color: #fff;
+            letter-spacing: 2px;
+            border-radius: 50px; /* Rounded button */
+            box-shadow: 0 0 15px rgba(255, 94, 98, 0.7); /* Glow effect */
+            transition: all 0.3s ease, box-shadow 0.3s ease;
+            width: 200px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-glowing:hover {
+            background: #FF3D42; /* Darker shade on hover */
+            box-shadow: 0 0 25px rgba(255, 94, 98, 1); /* Stronger glow on hover */
+            transform: scale(1.05);
+        }
+
+        /* Gradient Button with Soft Shadow */
+        .button-gradient {
+            display: inline-block;
+            font-size: 20px;
+            background: linear-gradient(145deg, #6a11cb, #2575fc); /* Gradient */
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 10px 10px;
+            color: #fff;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            width: 200px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-gradient:hover {
+            background: linear-gradient(145deg, #2575fc, #6a11cb); /* Reversed gradient on hover */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* Glowing Button for Delivery (same style as User) */
+        .button-delivery {
+            display: inline-block;
+            font-size: 20px;
+            background: #FF5E62;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 10px 10px;
+            color: #fff;
+            letter-spacing: 2px;
+            border-radius: 50px; /* Rounded button */
+            box-shadow: 0 0 15px rgba(255, 94, 98, 0.7); /* Glow effect */
+            transition: all 0.3s ease, box-shadow 0.3s ease;
+            width: 200px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-delivery:hover {
+            background: #FF3D42; /* Darker shade on hover */
+            box-shadow: 0 0 25px rgba(255, 94, 98, 1); /* Stronger glow on hover */
+            transform: scale(1.05);
+        }
+
+        .log {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding: 5px 0;
+            max-width: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .hunger-info {
+            font-size: 20px;
+            margin: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            animation: zoomIn 2s ease-in-out;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .logo {
+                font-size: 32px;
+                padding: 20px 10px 5px 10px;
+            }
+            .para {
+                font-size: 22px;
+            }
+            .button-glowing, .button-gradient, .button-delivery {
+                font-size: 12px;
+                width: 100px;
+                height: 35px;
+                padding: 6px 10px;
+                margin: 0 3px;
+                letter-spacing: 1px;
+            }
+            .hunger-info {
+                font-size: 14px;
+                margin: 10px;
+                padding: 10px;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .logo {
+                font-size: 28px;
+            }
+            .para {
+                font-size: 18px;
+            }
+            .button-glowing, .button-gradient, .button-delivery {
+                font-size: 10px;
+                width: 80px;
+                height: 30px;
+                padding: 4px 8px;
+                margin: 0 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Container -->
+    <div class="background-container">
+        <div class="background-layer"></div>
+        <div class="background-layer"></div>
+        <div class="background-layer"></div>
+    </div>
+
+    <!-- Content (Text and Links) -->
+    <p class="logo"> Welcome to Food <b style="color: #06C167;">Donate</b></p>
+    <p class="para"> Login as</p>
+    <div class="log">
+        <a href="signup.php" class="button-glowing">User</a>
+        <a href="admin/signup.php" class="button-gradient">Admin</a>
+        <a href="delivery/deliverysignup.php" class="button-delivery">Delivery</a>
+    </div>
+    <div class="hunger-info">
+        <p>Hunger, or 'bhukh', remains a significant challenge in India. Despite economic growth, many people still struggle with food insecurity. Initiatives like Food Donate aim to alleviate hunger by connecting surplus food with those in need, ensuring that no one goes to bed hungry.</p>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Food Donate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FFA000;
+            --accent-color: #2196F3;
+            --text-color: #333;
+            --bg-color: #f4f4f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: var(--text-color);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: #fff;
+            text-align: center;
+            padding: 150px 0 100px;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            opacity: 0.2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #FF8F00;
+            transform: translateY(-3px);
+        }
+
+        .contact-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 50px 0;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .contact-form, .contact-info {
+            flex-basis: 50%;
+            padding: 40px;
+        }
+
+        .contact-form h2, .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input, .contact-form textarea {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+        }
+
+        .contact-form button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .contact-form button:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        .contact-info {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+        }
+
+        .impact-section {
+            background-color: #fff;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .impact-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            font-size: 36px;
+        }
+
+        .impact-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            flex-basis: 30%;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-item .number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-item .label {
+            font-size: 18px;
+            color: var(--text-color);
+        }
+
+        .mission-section {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            opacity: 0.1;
+        }
+
+        .mission-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .mission-section h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .mission-section p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .additional-contacts {
+            margin: 50px 0;
+        }
+
+        .additional-contacts h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 36px;
+        }
+
+        .contact-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .contact-card {
+            flex-basis: calc(50% - 20px);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .contact-card p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .contact-card i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+        }
+
+        .testimonials {
+            background-color: #f9f9f9;
+            padding: 80px 0;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            font-size: 36px;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-item {
+            display: none;
+        }
+
+        .testimonial-item.active {
+            display: block;
+        }
+
+        .testimonial-content {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .slider-nav button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-nav button:hover {
+            background-color: #45a049;
+        }
+
+        .faq-section {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            font-size: 36px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '\f078';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: #fff;
+            padding: 40px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            flex-basis: 30%;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .footer-section p, .footer-section ul {
+            font-size: 14px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 20px;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: #fff;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 25px 0;
+            }
+
+            .contact-form, .contact-info {
+                flex-basis: 100%;
+            }
+
+            .stat-item, .contact-card {
+                flex-basis: 100%;
+            }
+
+            .footer-section {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">Food <span>Donate</span></div>
+                <ul class="nav-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                    <li><a href="profile.php">Profile</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Contact Us</h1>
+                <p>Together, we can make a difference in the fight against hunger. Reach out to us today!</p>
+                <a href="#contact-form" class="cta-button">Get Involved</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="contact-section" id="contact-form">
+            <div class="contact-form">
+                <h2>Get in Touch</h2>
+                <form action="feedback.php" method="post">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit" name="send">Send Message</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p><i class="fas fa-envelope"></i> Email: fooddonatefood@gmail.com</p>
+                <p><i class="fas fa-phone"></i> Phone:(+91) 8467845450</p>
+                <p><i class="fas fa-map-marker-alt"></i> Address: Kamani Sakinaka Andheri Kurla Road Mumbai Maharashra 400072</p>
+                <p><i class="fas fa-clock"></i> Hours: Monday-Sunday, 9am-5pm</p>
+                <p><i class="fas fa-globe"></i> Website: www.fooddonate.org</p>
+            </div>
+        </div>
+
+        <div class="impact-section">
+            <h2>Our Impact</h2>
+            <div class="impact-stats">
+                <div class="stat-item">
+                    <div class="number">1M+</div>
+                    <div class="label">Meals Donated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">50K+</div>
+                    <div class="label">Volunteers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">100+</div>
+                    <div class="label">Partner Organizations</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mission-section">
+            <div class="container">
+                <div class="mission-content">
+                    <h2>Our Mission</h2>
+                    <p>At Food Donate, we believe that no one should go to bed hungry. Our mission is to create a world where everyone has access to nutritious food. Through the power of community and compassion, we strive to make a lasting impact on hunger and food insecurity.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="additional-contacts">
+            <h2>Specialized Contact Information</h2>
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <h3>Donation Inquiries</h3>
+                    <p><i class="fas fa-user"></i> Contact Person: Abhay Sharma</p>
+                    <p><i class="fas fa-envelope"></i> sharmaabhay1961@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> Phone: (+91) 8956394580</p>
+                    <p><i class="fas fa-info-circle"></i> For questions about making food or monetary donations</p>
+                </div>
+                <div class="contact-card">
+                    <h3>Volunteer Opportunities</h3>
+                    <p><i class="fas fa-user"></i> Contact Person: Vedika Raut</p>
+                    <p><i class="fas fa-envelope"></i> Email: vedikaraut3439ghi@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> Phone: (+91) 9470094580</p>
+                    <p><i class="fas fa-info-circle"></i> Learn about our various volunteer programs and how to get involved</p>
+                </div>
+                <div class="contact-card">
+                    <h3>Partnership Inquiries</h3>
+                    <p><i class="fas fa-user"></i> Contact Person: Priya </p>
+                    <p><i class="fas fa-envelope"></i> Email: priya4979rj@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> Phone: (+91) 9079574680</p>
+                    <p><i class="fas fa-info-circle"></i> For organizations interested in collaborating with Food Donate</p>
+                </div>
+                <div class="contact-card">
+                    <h3>Media Relations</h3>
+                    <p><i class="fas fa-user"></i> Contact Person: Sharash Shahu</p>
+                    <p><i class="fas fa-envelope"></i> Email: fooddonatemedia89@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> Phone: (+91) 7800596479</p>
+                    <p><i class="fas fa-info-circle"></i> For press inquiries and interview requests</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials">
+            <h2>What People Say About Us</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-item active">
+                    <p class="testimonial-content">"Food Donate has made a tremendous impact in our community. Their dedication to fighting hunger is truly inspiring."</p>
+                    <p class="testimonial-author">- Sonu, Community Leader</p>
+                </div>
+                <div class="testimonial-item">
+                    <p class="testimonial-content">"Volunteering with Food Donate has been an eye-opening experience. It's amazing to see how much we can accomplish together."</p>
+                    <p class="testimonial-author">- Abhay Sharma, Volunteer</p>
+                </div>
+                <div class="testimonial-item">
+                    <p class="testimonial-content">"The team at Food Donate is passionate and professional. They've been great partners in our efforts to combat food insecurity."</p>
+                    <p class="testimonial-author">- Priya, Partner Organization</p>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button id="prev-testimonial">Previous</button>
+                <button id="next-testimonial">Next</button>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">How can I donate food?</div>
+                <div class="faq-answer">
+                    <p>You can donate food by dropping off non-perishable items at our collection centers or by organizing a food drive in your community. Contact our Donation Inquiries team for more information.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What volunteer opportunities are available?</div>
+                <div class="faq-answer">
+                    <p>We offer various volunteer opportunities, including food sorting, distribution, event support, and administrative tasks. Check our Volunteer Opportunities page or contact our Volunteer Coordinator for current openings.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How is my monetary donation used?</div>
+                <div class="faq-answer">
+                    <p>Your monetary donations go directly towards food procurement, transportation, storage, and distribution. We also use funds to support our educational programs and operational costs. We strive for transparency and provide detailed reports on our website.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Food Donate is a non-profit organization dedicated to fighting hunger and reducing food waste in our communities.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="home.html">Donate</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/?lang=en-in"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fw
+                        ww.linkedin.com%2Ffeed%2F%3Ftrk%3Dguest_homepage-basic_nav-header-signin"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Today's Networks | All reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu functionality
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
+        });
+
+        // Testimonial slider functionality
+        const testimonials = document.querySelectorAll('.testimonial-item');
+        const prevButton = document.getElementById('prev-testimonial');
+        const nextButton = document.getElementById('next-testimonial');
+        let currentTestimonial = 0;
+
+        function showTestimonial(index) {
+            testimonials.forEach((testimonial, i) => {
+                testimonial.classList.toggle('active', i === index);
+            });
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+
+        // FAQ functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 0);
+        });
+    </script>
+</body>
+</html>

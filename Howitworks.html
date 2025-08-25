@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Food Donations Work | FoodShare</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --secondary: #FFA726;
+            --text: #333333;
+            --light-bg: #f9f9f9;
+            --white: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gray: #f0f0f0;
+            --transition-speed: 0.3s;
+        }
+        
+        .dark-mode {
+            --primary: #66BB6A;
+            --primary-dark: #43A047;
+            --secondary: #FFB74D;
+            --text: #E0E0E0;
+            --light-bg: #121212;
+            --white: #1E1E1E;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --gray: #2C2C2C;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--light-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all var(--transition-speed);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--primary-dark);
+            padding: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/placeholder.svg?height=500&width=1200');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.3) 0%, rgba(255, 167, 38, 0.3) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s;
+            animation-fill-mode: both;
+        }
+        
+        .hero .btn {
+            animation: fadeInUp 1s ease-out 0.6s;
+            animation-fill-mode: both;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-dark);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .step-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            padding: 1.5rem;
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--secondary);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.3s ease;
+        }
+        
+        .step-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+        
+        .step-number {
+            background-color: var(--secondary);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover .step-number {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 167, 38, 0.5);
+        }
+        
+        .step-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            transition: color 0.3s;
+        }
+        
+        .step-card:hover h3 {
+            color: var(--secondary);
+        }
+        
+        .step-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            transition: transform 0.5s ease;
+        }
+        
+        .step-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .faq-section {
+            margin-bottom: 3rem;
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        .faq-question {
+            background-color: var(--white);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .faq-question:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.3s ease;
+            background-color: var(--white);
+        }
+        
+        .faq-answer.active {
+            padding: 1rem;
+            max-height: 300px;
+        }
+        
+        .cta-section {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/placeholder.svg?height=300&width=1200') center/cover no-repeat;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-section h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            background-color: #FB8C00;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .impact-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            padding: 1.5rem;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .stat-number::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .two-column {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .column {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .image-container {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px var(--shadow);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-container:hover .image-overlay {
+            opacity: 1;
+        }
+        
+        .image-overlay h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .image-overlay p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .video-container:hover {
+            box-shadow: 0 10px 20px var(--shadow);
+            transform: translateY(-5px);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+        
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        .testimonial {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+        
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 4rem;
+            color: rgba(76, 175, 80, 0.1);
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial:hover .testimonial-author img {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .guidelines-list {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .guidelines-list:hover {
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+        
+        .guidelines-list h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .guidelines-list h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .guidelines-list ul {
+            list-style-position: inside;
+            margin-bottom: 1rem;
+        }
+        
+        .guidelines-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 5px;
+            transition: all 0.2s ease;
+        }
+        
+        .guidelines-list li:hover {
+            transform: translateX(5px);
+            color: var(--primary-dark);
+        }
+        
+        .partner-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .partner-logo {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 120px;
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+        }
+        
+        .partner-logo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+            filter: grayscale(0%);
+        }
+        
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 80px;
+            transition: transform 0.3s ease;
+        }
+        
+        .partner-logo:hover img {
+            transform: scale(1.1);
+        }
+        
+        .food-drive-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .food-drive-step {
+            display: flex;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .food-drive-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+        
+        .food-drive-step-image {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .food-drive-step-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .food-drive-step:hover .food-drive-step-image img {
+            transform: scale(1.1);
+        }
+        
+        .food-drive-step-content {
+            flex: 2;
+            padding: 1.5rem;
+        }
+        
+        .food-drive-step-content h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .food-drive-step-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+        
+        .food-drive-step:hover .food-drive-step-content h3::after {
+            width: 100px;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px var(--shadow);
+            height: 200px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            color: white;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            max-width: 800px;
+            width: 90%;
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .modal-caption {
+            padding: 1rem;
+            background-color: var(--white);
+            color: var(--text);
+        }
+        
+        /* Donation Calculator */
+        .donation-calculator {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .calculator-slider {
+            width: 100%;
+            margin: 1.5rem 0;
+        }
+        
+        .calculator-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .calculator-impact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .impact-item {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .impact-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            transition: width 1s ease;
+            position: relative;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Volunteer form */
+        .volunteer-form {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: var(--light-bg);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+        
+        .form-error {
+            color: #e53935;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .form-success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--primary-dark);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        /* Interactive map */
+        .interactive-map {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .map-marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+        
+        .map-marker::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        
+        .map-marker:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .map-tooltip {
+            position: absolute;
+            background-color: white;
+            padding: 0.8rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            display: none;
+            z-index: 10;
+        }
+        
+        .map-tooltip h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+        
+        /* Dark mode toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px) rotate(10deg);
+        }
+        
+        .newsletter-form {
+            max-width: 500px;
+            margin: 1rem auto;
+            display: flex;
+            position: relative;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            border-radius: 0 4px 4px 0;
+            margin: 0;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                display: none;
+            }
+            
+            nav.active {
+                display: flex;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step-card {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .impact-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .food-drive-step {
+                flex-direction: column;
+            }
+            
+            .food-drive-step-image {
+                height: 200px;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" id="themeToggle">
+        <i id="themeIcon">🌙</i>
+    </div>
+
+    <header>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        <nav id="mainNav">
+            <a href="home.html">Home</a>
+            <a href="Howitworks.html">How It Works</a>
+            <a href="#food-drive">Food Drives</a>
+            <a href="Success_story.html">Success Stories</a>
+            <a href="FAQ3.html">FAQ</a>
+            <a href="Impact.html">Impact</a>
+            <a href="fooddonateform.php">Donate</a>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>How Food Donations Work</h1>
+            <p>Learn how your donations help fight hunger in our community and make a lasting impact on those in need</p>
+            <a href="fooddonateform.php" class="btn">Donate Now</a>
+        </div>
+    </section>
+    
+    <div class="container">
+        <section id="how-it-works">
+            <h2 class="section-title fade-in">The Donation Process</h2>
+            <div class="process-steps">
+                <div class="step-card fade-in">
+                    <div class="step-number">1</div>
+                    <img src="35.webp" alt="Person donating food items">
+                    <h3>Donate Food</h3>
+                    <p>Donate non-perishable food items at our collection points or schedule a pickup for larger donations. We accept canned goods, grains, and other shelf-stable items.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">2</div>
+                    <img src="11.webp" alt="Volunteers sorting food donations">
+                    <h3>Collection & Sorting</h3>
+                    <p>Our volunteers collect and sort all donations, checking expiration dates and packaging integrity to ensure food safety standards are met.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">3</div>
+                    <img src="35.webp" alt="Food distribution to community">
+                    <h3>Distribution</h3>
+                    <p>Sorted food is distributed to local food banks, shelters, and community centers where it reaches individuals and families in need.</p>
+                </div>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step-card fade-in">
+                    <div class="step-number">4</div>
+                    <img src="34.webp" alt="Online monetary donation">
+                    <h3>Monetary Donations</h3>
+                    <p>Financial contributions help us purchase fresh produce, dairy, and other perishable items that complement non-perishable donations.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">5</div>
+                    <img src="41.jpg" alt="Volunteers working together">
+                    <h3>Volunteer Support</h3>
+                    <p>Volunteers are the backbone of our operation, helping with collection, sorting, distribution, and administrative tasks.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">6</div>
+                    <img src="30.webp" alt="Family receiving food assistance">
+                    <h3>Community Impact</h3>
+                    <p>Your donations directly impact local families, providing nutritious meals and reducing food insecurity in our community.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="donation-calculator" class="fade-in">
+            <h2 class="section-title">Donation Impact Calculator</h2>
+            <div class="donation-calculator">
+                <h3>See the impact of your donation</h3>
+                <p>Move the slider to see how your contribution helps our community</p>
+                
+                <div class="calculator-value">$<span id="donationAmount">50</span></div>
+                
+                <input type="range" min="10" max="500" value="50" class="calculator-slider" id="donationSlider">
+                
+                <div class="calculator-impact">
+                    <div class="impact-item">
+                        <div class="impact-number" id="mealsProvided">200</div>
+                        <p>Meals Provided</p>
+                    </div>
+                    <div class="impact-item">
+                        <div class="impact-number" id="familiesHelped">40</div>
+                        <p>Families Helped</p>
+                    </div>
+                    <div class="impact-item">
+                        <div class="impact-number" id="poundsOfFood">150</div>
+                        <p>Pounds of Food</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="index.html" class="btn">Make This Donation</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="donation-progress" class="fade-in">
+            <h2 class="section-title">Monthly Donation Goal</h2>
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>Current: $<span id="currentAmount">15,750</span></span>
+                    <span>Goal: $25,000</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="donationProgress" style="width: 63%"></div>
+                </div>
+                <p>We're <span id="progressPercent">63</span>% of the way to our monthly goal! Help us reach 100%.</p>
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <a href="fooddonateform.php" class="btn">Contribute Now</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="donation-guidelines">
+            <h2 class="section-title fade-in">Donation Guidelines</h2>
+            
+            <div class="two-column">
+                <div class="column fade-in">
+                    <div class="image-container">
+                        <img src="48.webp" alt="Various acceptable food donation items">
+                        <div class="image-overlay">
+                            <h3>Donation Items</h3>
+                            <p>Non-perishable food items ready for distribution</p>
+                        </div>
+                    </div>
+                    
+                    <div class="guidelines-list">
+                        <h3>Most Needed Items</h3>
+                        <ul>
+                            <li>Canned proteins (tuna, chicken, salmon)</li>
+                            <li>Peanut butter and nut butters</li>
+                            <li>Canned fruits and vegetables</li>
+                            <li>Pasta, rice, and grains</li>
+                            <li>Canned or dry beans</li>
+                            <li>Cereal and oatmeal</li>
+                            <li>Cooking oils</li>
+                            <li>Shelf-stable milk</li>
+                            <li>Baby food and formula</li>
+                            <li>Hygiene products</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="column fade-in">
+                    <div class="guidelines-list">
+                        <h3>Items We Cannot Accept</h3>
+                        <ul>
+                            <li>Expired food items</li>
+                            <li>Homemade foods</li>
+                            <li>Open or partially used items</li>
+                            <li>Alcoholic beverages</li>
+                            <li>Medications</li>
+                            <li>Items requiring refrigeration (unless arranged)</li>
+                            <li>Items with damaged packaging</li>
+                            <li>Rusty or dented cans</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="guidelines-list">
+                        <h3>Food Safety Guidelines</h3>
+                        <ul>
+                            <li>Check expiration dates before donating</li>
+                            <li>Ensure packaging is intact and unopened</li>
+                            <li>Store food in a cool, dry place before donating</li>
+                            <li>Group similar items together when possible</li>
+                            <li>Consider donating reusable bags with your food items</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="locations">
+            <h2 class="section-title fade-in">Donation Locations</h2>
+            
+            <div class="interactive-map fade-in" id="interactiveMap">
+                <img src="Realtime-tracking.webp" alt="Map of donation locations" style="width: 100%; height: 100%; object-fit: cover;">
+                
+                <!-- Map markers will be added via JavaScript -->
+                
+                <div class="map-tooltip" id="mapTooltip">
+                    <h4>Location Name</h4>
+                    <p>Address goes here</p>
+                    <p>Hours: Mon-Fri 9am-5pm</p>
+                </div>
+            </div>
+            
+            <div class="two-column">
+                <div class="column fade-in">
+                    <div class="guidelines-list">
+                        <h3>Main Collection Centers</h3>
+                        <ul>
+                            <li><strong>FoodShare Headquarters</strong><br>123 Main Street<br>Open: Mon-Fri 8am-6pm, Sat 9am-3pm</li>
+                            <li><strong>Downtown Community Center</strong><br>456 Central Avenue<br>Open: Mon-Sat 10am-7pm</li>
+                            <li><strong>Westside Food Bank</strong><br>789 West Boulevard<br>Open: Tue-Sun 9am-5pm</li>
+                            <li><strong>Eastside Distribution Center</strong><br>321 East Road<br>Open: Mon-Fri 8am-8pm, Sat-Sun 10am-4pm</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="column fade-in">
+                    <div class="guidelines-list">
+                        <h3>Partner Drop-off Locations</h3>
+                        <ul>
+                            <li>All City Grocery Stores (collection bins at entrance)</li>
+                            <li>Public Libraries (all branches)</li>
+                            <li>Community Centers</li>
+                            <li>Participating Schools and Universities</li>
+                            <li>Places of Worship (participating locations)</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="#" class="btn" id="findNearestBtn">Find Nearest Location</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="food-drive">
+            <h2 class="section-title fade-in">Organize a Food Drive</h2>
+            
+            <div class="food-drive-steps">
+                <div class="food-drive-step fade-in">
+                    <div class="food-drive-step-image">
+                        <img src="45.webp" alt="Planning a food drive">
+                    </div>
+                    <div class="food-drive-step-content">
+                        <h3>Step 1: Plan Your Food Drive</h3>
+                        <p>Choose a date, location, and goal for your food drive. Decide if you'll collect specific items or accept all non-perishable donations. Register your food drive with us to receive support materials and guidance.</p>
+                        <p>We recommend running food drives for 1-2 weeks to maximize participation. Consider setting a specific goal, such as collecting 500 pounds of food or 300 items.</p>
+                    </div>
+                </div>
+                
+                <div class="food-drive-step fade-in">
+                    <div class="food-drive-step-image">
+                        <img src="51.webp" alt="Promoting a food drive">
+                    </div>
+                    <div class="food-drive-step-content">
+                        <h3>Step 2: Promote Your Food Drive</h3>
+                        <p>Spread the word about your food drive through social media, email, flyers, and word of mouth. We can provide digital promotional materials and collection bin signage to help you get started.</p>
+                        <p>Be sure to clearly communicate the dates, locations, and most-needed items. Consider creating a theme or friendly competition to increase engagement.</p>
+                    </div>
+                </div>
+                
+                <div class="food-drive-step fade-in">
+                    <div class="food-drive-step-image">
+                        <img src="49.webp" alt="Collecting donations">
+                    </div>
+                    <div class="food-drive-step-content">
+                        <h3>Step 3: Collect Donations</h3>
+                        <p>Set up clearly marked collection bins in high-traffic areas. Check bins regularly and ensure they don't overflow. Keep track of donations received to measure progress toward your goal.</p>
+                        <p>Consider having volunteers present during peak times to answer questions and thank donors. This personal touch can significantly increase participation.</p>
+                    </div>
+                </div>
+                
+                <div class="food-drive-step fade-in">
+                    <div class="food-drive-step-image">
+                        <img src="31.webp" alt="Delivering collected food">
+                    </div>
+                    <div class="food-drive-step-content">
+                        <h3>Step 4: Deliver Your Donations</h3>
+                        <p>Once your food drive is complete, arrange to deliver the collected items to one of our distribution centers. For large collections, we may be able to arrange pickup. Be sure to call ahead to coordinate.</p>
+                        <p>We'll provide you with a receipt and impact statement showing how many meals your donation will provide to those in need.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-section fade-in" style="margin-top: 2rem;">
+                <div class="cta-content">
+                    <h2>Ready to Start Your Food Drive?</h2>
+                    <p>We'll provide you with all the resources you need to make your food drive a success.</p>
+                    <a href="index.html" class="btn">Register Your Food Drive</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="volunteer-signup" class="fade-in">
+            <h2 class="section-title">Volunteer With Us</h2>
+            
+            <div class="volunteer-form">
+                <h3>Join Our Volunteer Team</h3>
+                <p>Fill out the form below to express your interest in volunteering. We'll contact you with available opportunities.</p>
+                
+                <form id="volunteerForm">
+                    <div class="two-column" style="gap: 1rem;">
+                        <div class="column">
+                            <div class="form-group">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" required>
+                                <div class="form-error" id="nameError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" required>
+                                <div class="form-error" id="emailError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone">
+                            </div>
+                        </div>
+                        
+                        <div class="column">
+                            <div class="form-group">
+                                <label for="availability">Availability *</label>
+                                <select id="availability" required>
+                                    <option value="">Select your availability</option>
+                                    <option value="weekdays">Weekdays</option>
+                                    <option value="weekends">Weekends</option>
+                                    <option value="both">Both Weekdays and Weekends</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                                <div class="form-error" id="availabilityError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="interests">Areas of Interest *</label>
+                                <select id="interests" required>
+                                    <option value="">Select your interest</option>
+                                    <option value="sorting">Food Sorting</option>
+                                    <option value="distribution">Food Distribution</option>
+                                    <option value="driving">Delivery Driver</option>
+                                    <option value="admin">Administrative Support</option>
+                                    <option value="events">Special Events</option>
+                                    <option value="any">Any Area Needed</option>
+                                </select>
+                                <div class="form-error" id="interestsError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Additional Information</label>
+                                <textarea id="message" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <button type="submit" class="btn">Submit Application</button>
+                    </div>
+                    
+                    <div class="form-success" id="formSuccess">
+                        Thank you for your interest in volunteering! We've received your application and will contact you shortly.
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        <section id="success-stories">
+            <h2 class="section-title fade-in">Success Stories</h2>
+            
+            <div class="two-column">
+                <div class="column fade-in">
+                    <div class="video-container">
+                        <iframe src="355958930601308161.mp4" title="Food Donation Impact Story" allowfullscreen></iframe>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            "The food assistance program has been a lifeline for my family during difficult times. Not only do we receive nutritious food, but the volunteers treat us with dignity and respect. I'm now in a better place financially and have started volunteering to give back."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="Img.jpg" alt="Sarah J.">
+                            <div>
+                                <strong>Sonu </strong><br>
+                                Program Recipient & Volunteer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="column fade-in">
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            "As a school teacher, I see firsthand how hunger affects children's ability to learn. The weekend backpack program ensures my students have food when school meals aren't available. The difference in their energy and focus is remarkable."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="ved.png" alt="Michael T.">
+                            <div>
+                                <strong>Vedika R.</strong><br>
+                                Elementary School Teacher
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            "Our company organized a food drive that collected over 2,000 pounds of food! The FoodShare team made it easy with their resources and support. It was a great team-building activity that made a real difference in our community."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="Sat.png" alt="Jennifer L.">
+                            <div>
+                                <strong>Satyam S.</strong><br>
+                                Corporate Partner
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            "After retiring, I wanted to give back to my community. Volunteering at FoodShare twice a week has been incredibly rewarding. The organization is well-run, and I can see the direct impact of our work on local families."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="Omk.jpg" alt="Robert K.">
+                            <div>
+                                <strong>Omkar Y.</strong><br>
+                                Regular Volunteer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="section-title fade-in" style="font-size: 1.5rem; margin-top: 2rem;">Photo Gallery</h3>
+            
+            <div class="gallery">
+                <div class="gallery-item fade-in">
+                    <img src="41.jpg" alt="Volunteers sorting donations">
+                    <div class="gallery-caption">Volunteers sorting weekly donations</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="51.webp" alt="Food distribution event">
+                    <div class="gallery-caption">Monthly distribution event</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="8.webp" alt="Family receiving food assistance">
+                    <div class="gallery-caption">Family receiving assistance</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="30.webp" alt="Corporate food drive">
+                    <div class="gallery-caption">Corporate food drive</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="53.webp" alt="School backpack program">
+                    <div class="gallery-caption">School backpack program</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="60.webp" alt="Community kitchen">
+                    <div class="gallery-caption">Community kitchen</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="35.webp" alt="Community kitchen">
+                    <div class="gallery-caption">Community kitchen</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="34.webp" alt="Community kitchen">
+                    <div class="gallery-caption">Community kitchen</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="partners">
+            <h2 class="section-title fade-in">Our Partners</h2>
+            <p style="text-align: center; margin-bottom: 2rem;" class="fade-in">We collaborate with these amazing organizations to maximize our impact in the community.</p>
+            
+            <div class="partner-logos">
+                <div class="partner-logo fade-in">
+                    <img src="69.webp" alt="City Grocery Partner">
+                </div>
+                <div class="partner-logo fade-in">
+                    <img src="61.webp" alt="Community Foundation Partner">
+                </div>
+                <div class="partner-logo fade-in">
+                    <img src="66.webp" alt="Local Bank Partner">
+                </div>
+                <div class="partner-logo fade-in">
+                    <img src="65.webp" alt="Healthcare Provider Partner.">
+                </div>
+                <div class="partner-logo fade-in">
+                    <img src="67.webp" alt="Transportation Company Partner">
+                </div>
+                <div class="partner-logo fade-in">
+                    <img src="63.webp" alt="University Partner">
+                </div>
+                <div class="partner-logo fade-in">
+                    <img src="62.webp" alt="Restaurant Chain Partner">
+                </div>
+                <div class="partner-logo fade-in">
+                    <img src="64.webp" alt="Technology Company Partner">
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 2rem;" class="fade-in">
+                <a href="Volienter.html" class="btn" style="background-color: var(--primary-dark);">Become a Partner</a>
+            </p>
+        </section>
+        
+        <section id="faq" class="faq-section">
+            <h2 class="section-title fade-in">Frequently Asked Questions</h2>
+            
+            <div class="faq-item fade-in">
+                <div class="faq-question">
+                    What food items can I donate?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We accept non-perishable food items such as canned goods (vegetables, fruits, meats, soups), pasta, rice, cereal, peanut butter, and other shelf-stable items. Please ensure all items are unopened and within their expiration date. See our Donation Guidelines section for a complete list of most-needed items.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item fade-in">
+                <div class="faq-question">
+                    Where can I drop off donations?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We have multiple collection points throughout the city, including grocery stores, community centers, and our main warehouse. Check our Locations section for the drop-off point nearest to you. For large donations, we may be able to arrange a pickup service.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item fade-in">
+                <div class="faq-question">
+                    Can I donate money instead of food?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Monetary donations are extremely valuable as they allow us to purchase fresh produce, dairy, and other perishable items that complement our non-perishable inventory. Every $1 donated helps provide up to 4 meals. You can donate securely online through our website or by mail.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item fade-in">
+                <div class="faq-question">
+                    How can I volunteer?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We welcome volunteers for various roles including food sorting, distribution, driving, and administrative support. Visit our volunteer page to sign up and see available opportunities. Both regular and one-time volunteers are appreciated! We also offer group volunteering for companies, schools, and organizations.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item fade-in">
+                <div class="faq-question">
+                    Are my donations tax-deductible?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we are a registered 501(c)(3) non-profit organization, so all donations (both food and monetary) are tax-deductible. We provide receipts for all donations upon request. For food donations, we can provide a receipt with an estimated value based on weight.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="impact">
+            <h2 class="section-title fade-in">Our Impact</h2>
+            
+            <div class="impact-stats">
+                <div class="stat-card fade-in">
+                    <div class="stat-number" id="meals-count">0</div>
+                    <p>Meals Provided Last Year</p>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number" id="families-count">0</div>
+                    <p>Families Supported</p>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number" id="volunteers-count">0</div>
+                    <p>Active Volunteers</p>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number" id="pounds-count">0</div>
+                    <p>Pounds of Food Distributed</p>
+                </div>
+            </div>
+            
+            <div class="two-column" style="margin-top: 2rem;">
+                <div class="column fade-in">
+                    <div class="image-container">
+                        <img src="48.webp" alt="Annual impact report cover">
+                        <div class="image-overlay">
+                            <h3>Annual Report</h3>
+                            <p>Detailed breakdown of our community impact</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column fade-in">
+                    <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">Annual Impact Report</h3>
+                    <p>Our comprehensive annual report details how your donations make a difference in our community. We're committed to transparency and accountability in all our operations.</p>
+                    <p style="margin: 1rem 0;">The report includes detailed information about:</p>
+                    <ul style="list-style-position: inside; margin-bottom: 1.5rem;">
+                        <li>Programs and services provided</li>
+                        <li>Number of individuals and families served</li>
+                        <li>Distribution by neighborhood</li>
+                        <li>Financial statements and allocation of funds</li>
+                        <li>Partner organizations and collaborations</li>
+                        <li>Volunteer contributions and impact</li>
+                    </ul>
+                    <a href="Impact.html" class="btn" style="background-color: var(--primary-dark);">Our Impact Report</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="donate" class="cta-section">
+            <div class="cta-content">
+                <h2 class="fade-in">Ready to Make a Difference?</h2>
+                <p class="fade-in">Your donation can help provide nutritious meals to those in need.</p>
+                <div style="margin-top: 1.5rem;" class="fade-in">
+                    <a href="fooddonateform.php" class="btn" style="margin-right: 1rem;">Donate Food</a>
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Image Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">×</button>
+            <img src="/placeholder.svg" alt="Gallery image" class="modal-image" id="modalImage">
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+    </div>
+    
+    <footer>
+        
+        
+        <div class="social-links">
+            <a href="#" aria-label="Facebook"><i>f</i></a>
+            <a href="#" aria-label="Twitter"><i>t</i></a>
+            <a href="#" aria-label="Instagram"><i>i</i></a>
+            <a href="#" aria-label="YouTube"><i>y</i></a>
+            <a href="#" aria-label="LinkedIn"><i>l</i></a>
+        </div>
+        
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="Volienter.html">Volunteer</a>
+            <a href="fooddonateform.php">Donate</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Careers</a>
+            <a href="#">News</a>
+        </div>
+        
+        <p style="margin-top: 1.5rem;">Subscribe to our newsletter for updates on our programs and impact.</p>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Your email address" id="newsletterEmail">
+            <button class="btn" id="subscribeBtn">Subscribe</button>
+        </div>
+        
+        <p>&copy; 2025 FoodShare. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('active');
+        });
+        
+        // Dark mode toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        // Check for saved theme preference or respect OS preference
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDarkScheme.matches)) {
+            document.body.classList.add('dark-mode');
+            themeIcon.textContent = '☀️';
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeIcon.textContent = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeIcon.textContent = '🌙';
+            }
+        });
+        
+        // FAQ Accordion functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const toggle = question.querySelector('.toggle');
+                
+                // Close all other answers
+                document.querySelectorAll('.faq-answer').forEach(item => {
+                    if (item !== answer) {
+                        item.classList.remove('active');
+                        item.previousElementSibling.querySelector('.toggle').textContent = '+';
+                    }
+                });
+                
+                // Toggle current answer
+                answer.classList.toggle('active');
+                toggle.textContent = answer.classList.contains('active') ? '-' : '+';
+            });
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a, .hero a, .cta-section a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Animated counter for impact stats
+        function animateCounter(elementId, targetValue) {
+            const element = document.getElementById(elementId);
+            const duration = 2000; // 2 seconds
+            const frameDuration = 1000 / 60; // 60fps
+            const totalFrames = Math.round(duration / frameDuration);
+            let frame = 0;
+            
+            const counter = setInterval(() => {
+                frame++;
+                const progress = frame / totalFrames;
+                const currentValue = Math.round(targetValue * progress);
+                
+                element.textContent = currentValue.toLocaleString();
+                
+                if (frame === totalFrames) {
+                    clearInterval(counter);
+                }
+            }, frameDuration);
+        }
+        
+        // Donation calculator functionality
+        const donationSlider = document.getElementById('donationSlider');
+        const donationAmount = document.getElementById('donationAmount');
+        const mealsProvided = document.getElementById('mealsProvided');
+        const familiesHelped = document.getElementById('familiesHelped');
+        const poundsOfFood = document.getElementById('poundsOfFood');
+        
+        donationSlider.addEventListener('input', function() {
+            const value = this.value;
+            donationAmount.textContent = value;
+            
+            // Calculate impact based on donation amount
+            mealsProvided.textContent = (value * 4).toLocaleString();
+            familiesHelped.textContent = Math.round(value * 0.8).toLocaleString();
+            poundsOfFood.textContent = (value * 3).toLocaleString();
+        });
+        
+        // Interactive map functionality
+        const interactiveMap = document.getElementById('interactiveMap');
+        const mapTooltip = document.getElementById('mapTooltip');
+        
+        // Sample location data
+        const locations = [
+            { x: 20, y: 30, name: "FoodShare Headquarters", address: "123 Main Street", hours: "Mon-Fri 8am-6pm, Sat 9am-3pm" },
+            { x: 50, y: 60, name: "Downtown Community Center", address: "456 Central Avenue", hours: "Mon-Sat 10am-7pm" },
+            { x: 80, y: 40, name: "Westside Food Bank", address: "789 West Boulevard", hours: "Tue-Sun 9am-5pm" },
+            { x: 30, y: 70, name: "Eastside Distribution Center", address: "321 East Road", hours: "Mon-Fri 8am-8pm, Sat-Sun 10am-4pm" },
+            { x: 60, y: 20, name: "Northside Collection Point", address: "555 North Avenue", hours: "Wed-Sun 9am-6pm" }
+        ];
+        
+        // Create map markers
+        locations.forEach(location => {
+            const marker = document.createElement('div');
+            marker.className = 'map-marker';
+            marker.style.left = `${location.x}%`;
+            marker.style.top = `${location.y}%`;
+            
+            marker.addEventListener('mouseenter', function(e) {
+                mapTooltip.querySelector('h4').textContent = location.name;
+                mapTooltip.querySelector('p:first-of-type').textContent = location.address;
+                mapTooltip.querySelector('p:last-of-type').textContent = `Hours: ${location.hours}`;
+                
+                mapTooltip.style.display = 'block';
+                mapTooltip.style.left = `${e.pageX - interactiveMap.offsetLeft + 10}px`;
+                mapTooltip.style.top = `${e.pageY - interactiveMap.offsetTop + 10}px`;
+            });
+            
+            marker.addEventListener('mouseleave', function() {
+                mapTooltip.style.display = 'none';
+            });
+            
+            interactiveMap.appendChild(marker);
+        });
+        
+        // Find nearest location button
+        document.getElementById('findNearestBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('This feature would use geolocation to find the nearest donation location. For demonstration purposes, we\'re showing a sample alert.');
+        });
+        
+        // Volunteer form validation
+        const volunteerForm = document.getElementById('volunteerForm');
+        
+        volunteerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            
+            // Reset errors
+            document.querySelectorAll('.form-error').forEach(error => {
+                error.textContent = '';
+            });
+            
+            // Validate name
+            const fullName = document.getElementById('fullName');
+            if (!fullName.value.trim()) {
+                document.getElementById('nameError').textContent = 'Please enter your name';
+                isValid = false;
+            }
+            
+            // Validate email
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim() || !emailRegex.test(email.value)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                isValid = false;
+            }
+            
+            // Validate availability
+            const availability = document.getElementById('availability');
+            if (!availability.value) {
+                document.getElementById('availabilityError').textContent = 'Please select your availability';
+                isValid = false;
+            }
+            
+            // Validate interests
+            const interests = document.getElementById('interests');
+            if (!interests.value) {
+                document.getElementById('interestsError').textContent = 'Please select an area of interest';
+                isValid = false;
+            }
+            
+            // If valid, show success message
+            if (isValid) {
+                document.getElementById('formSuccess').style.display = 'block';
+                volunteerForm.reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('formSuccess').style.display = 'none';
+                }, 5000);
+            }
+        });
+        
+        // Gallery modal functionality
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const modalClose = document.getElementById('modalClose');
+        
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.querySelector('img').src;
+                const caption = this.querySelector('.gallery-caption').textContent;
+                
+                modalImage.src = imgSrc;
+                modalCaption.textContent = caption;
+                imageModal.style.display = 'flex';
+                
+                // Prevent scrolling when modal is open
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        modalClose.addEventListener('click', function() {
+            imageModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside the content
+        imageModal.addEventListener('click', function(e) {
+            if (e.target === imageModal) {
+                imageModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Newsletter subscription
+        document.getElementById('subscribeBtn').addEventListener('click', function() {
+            const email = document.getElementById('newsletterEmail').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && emailRegex.test(email)) {
+                alert(`Thank you for subscribing with ${email}! You'll receive our next newsletter.`);
+                document.getElementById('newsletterEmail').value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+        
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // Initial check on page load
+        checkFade();
+        
+        // Check on scroll
+        window.addEventListener('scroll', checkFade);
+        
+        // Start animation when impact stats are in viewport
+        const impactObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter('meals-count', 250000);
+                    animateCounter('families-count', 45000);
+                    animateCounter('volunteers-count', 1200);
+                    animateCounter('pounds-count', 1500000);
+                    impactObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        impactObserver.observe(document.querySelector('.impact-stats'));
+    </script>
+</body>
+</html>
