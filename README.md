@@ -52,7 +52,7 @@
        <li> Run the script http://localhost/folderName </li> </ol>
 
 <h2>Project Demo Video</h2>
-<iframe src="https://drive.google.com/file/d/1U1bno73KUeSJ6_70er0vs2TKMZ5rcKxN/preview" 
-        width="640" height="360" allow="autoplay">
-</iframe>
+Visit This Linkb: https://drive.google.com/file/d/1U1bno73KUeSJ6_70er0vs2TKMZ5rcKxN/preview
+
+Thank You
 
